@@ -74,7 +74,7 @@ public class TsscStoryController {
 	@PostMapping("/tsscstory/edit/{id}")
 	public String editStory(@PathVariable("id") long id, @RequestParam(value = "action", required = true) String action, 
 			@Validated(ValidationGroupEdit.class) @ModelAttribute TsscStory story, BindingResult bindingResult, Model model) {
-		System.out.println("hola");
+		
 		if (bindingResult.hasErrors()) {
 			return "tsscstory/edit-story";
 		}
