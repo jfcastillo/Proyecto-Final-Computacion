@@ -12,5 +12,4 @@ public interface TsscTopicService {
 	public Iterable<TsscTopic> findAll();
 	public Optional<TsscTopic> findById(long id);
 	public void deleteTopic(TsscTopic topic);
-
 }
