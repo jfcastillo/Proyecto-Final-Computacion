@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 import com.taller.castillo.felipe.model.TsscGame;
 import com.taller.castillo.felipe.model.TsscStory;
 import com.taller.castillo.felipe.model.TsscTopic;
@@ -20,11 +20,13 @@ public class BusinessDelegateImp implements BusinessDelegate{
 	
 	@Autowired
 	private RestTemplate restTemplate;
-
+	
+	
+	//TsscGame ---------------------------------------------------------------------------------------------------
 	@Override
 	public TsscGame getGame(long idGame) {
 		TsscGame game = null;
-		ResponseEntity<TsscGame> responseGame = restTemplate.getForEntity(LOCAL_URL + "api/games"+ idGame, TsscGame.class);
+		ResponseEntity<TsscGame> responseGame = restTemplate.getForEntity(LOCAL_URL + "api/tsscgames/"+ idGame, TsscGame.class);
 		if (responseGame.getStatusCode() == HttpStatus.OK) 
 			game = responseGame.getBody();
 		return game;
@@ -35,43 +37,67 @@ public class BusinessDelegateImp implements BusinessDelegate{
 	public Iterable<TsscGame> findAllGames() {
 		TsscGame[] game = null;
 		List<TsscGame> gameIt;
-		ResponseEntity<TsscGame[]> responseGames = restTemplate.getForEntity(LOCAL_URL + "api/games" , TsscGame[].class);
-		if (responseGames.getStatusCode() == HttpStatus.OK) 
+		ResponseEntity<TsscGame[]> responseGames = restTemplate.getForEntity(LOCAL_URL + "api/tsscgames/" , TsscGame[].class);
+		if (responseGames.getStatusCode() == HttpStatus.OK) {
 			game = responseGames.getBody();
-		gameIt = Arrays.asList(game);
+		}		
+		gameIt = Arrays.asList(game);	
+		
 		return gameIt;
 	}
 
 	@Override
 	public TsscGame saveGame(TsscGame game) {
-		// TODO Auto-generated method stub
-		return null;
+		TsscGame response = null;
+		ResponseEntity<TsscGame> responseGame = restTemplate.postForEntity(LOCAL_URL + "api/tsscgames/", game, TsscGame.class);
+		if ( responseGame.getStatusCode() == HttpStatus.OK) {
+			response = responseGame.getBody();
+		}	
+		
+		return response;
 	}
 
+	// Falta los metodos de editar
 	@Override
 	public TsscGame editGame(TsscGame game) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	//TsscTopic ---------------------------------------------------------------------------------------------------
 	@Override
 	public TsscTopic getTopic(long idTopic) {
-		// TODO Auto-generated method stub
-		return null;
+		TsscTopic topic = null;
+		ResponseEntity<TsscTopic> responseTopic = restTemplate.getForEntity(LOCAL_URL + "api/tssctopics/"+ idTopic, TsscTopic.class);
+		if (responseTopic.getStatusCode() == HttpStatus.OK) 
+			topic = responseTopic.getBody();
+		return topic;
 	}
 
 	@Override
 	public Iterable<TsscTopic> findAllTopics() {
-		// TODO Auto-generated method stub
-		return null;
+		TsscTopic[] topics = null;
+		List<TsscTopic> topicsIt;
+		ResponseEntity<TsscTopic[]> responseTopics = restTemplate.getForEntity(LOCAL_URL + "api/tssctopics/" , TsscTopic[].class);
+		if (responseTopics.getStatusCode() == HttpStatus.OK) {
+			topics = responseTopics.getBody();
+		}		
+		topicsIt = Arrays.asList(topics);	
+		
+		return topicsIt;
 	}
 
 	@Override
 	public TsscTopic saveTopic(TsscTopic topic) {
-		// TODO Auto-generated method stub
-		return null;
+		TsscTopic response = null;
+		ResponseEntity<TsscTopic> responseTopic = restTemplate.postForEntity(LOCAL_URL + "api/tssctopics/", topic, TsscTopic.class);
+		if ( responseTopic.getStatusCode() == HttpStatus.OK) {
+			response = responseTopic.getBody();
+		}	
+		
+		return response;
 	}
-
+	// Falta los metodos de editar
 	@Override
 	public TsscTopic editTopic(TsscTopic topic) {
 		// TODO Auto-generated method stub
@@ -80,37 +106,52 @@ public class BusinessDelegateImp implements BusinessDelegate{
 
 	@Override
 	public void deleteTopic(TsscTopic topic) {
-		// TODO Auto-generated method stub
+		restTemplate.delete(LOCAL_URL + topic.getId());
 		
 	}
-
+	//TsscStory ---------------------------------------------------------------------------------------------------
 	@Override
-	public TsscStory getStory(long idTopic) {
-		// TODO Auto-generated method stub
-		return null;
+	public TsscStory getStory(long idStory) {
+		TsscStory story = null;
+		ResponseEntity<TsscStory> responseStory = restTemplate.getForEntity(LOCAL_URL + "api/tsscstories/"+ idStory, TsscStory.class);
+		if (responseStory.getStatusCode() == HttpStatus.OK) 
+			story = responseStory.getBody();
+		return story;
 	}
 
 	@Override
 	public Iterable<TsscStory> findAllStories() {
+		TsscStory[] stories = null;
+		List<TsscStory> storiesIt;
+		ResponseEntity<TsscStory[]> responseStories = restTemplate.getForEntity(LOCAL_URL + "api/tsscstories/" , TsscStory[].class);
+		if (responseStories.getStatusCode() == HttpStatus.OK) {
+			stories = responseStories.getBody();
+		}		
+		storiesIt = Arrays.asList(stories);	
+		
+		return storiesIt;
+	}
+
+	@Override
+	public TsscStory saveStory(TsscStory story) {
+		TsscStory response = null;
+		ResponseEntity<TsscStory> responseStory = restTemplate.postForEntity(LOCAL_URL + "api/tsscstories/", story, TsscStory.class);
+		if ( responseStory.getStatusCode() == HttpStatus.OK) {
+			response = responseStory.getBody();
+		}	
+		
+		return response;
+	}
+
+	@Override
+	public TsscStory editStory(TsscStory story) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public TsscStory saveStory(TsscTopic topic) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public TsscStory editStory(TsscTopic topic) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteStory(TsscTopic topic) {
-		// TODO Auto-generated method stub
+	public void deleteStory(TsscStory story) {
+		restTemplate.delete(LOCAL_URL + story.getId());
 		
 	}
 
