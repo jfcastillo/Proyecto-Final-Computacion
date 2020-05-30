@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
@@ -24,6 +26,10 @@ public class Taller2Application {
 	@Bean
 	public Java8TimeDialect java8TimeDialect() {
 		return new Java8TimeDialect();
+	}
+	@Bean
+	public RestTemplate restTemplate() {
+	    return new RestTemplate();
 	}
 
 	public static void main(String[] args) {

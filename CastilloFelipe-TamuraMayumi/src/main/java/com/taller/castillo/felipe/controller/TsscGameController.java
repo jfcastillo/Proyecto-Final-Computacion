@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.taller.castillo.felipe.delegate.BusinessDelegate;
 import com.taller.castillo.felipe.exception.EditException;
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscGame;
@@ -28,12 +29,14 @@ public class TsscGameController {
 	private TsscGameService gameService;
 	@Autowired
 	private TsscTopicService topicService;
+	@Autowired
+	private BusinessDelegate businessDelegate;
 	
 	private long idGame;
 	
 	@GetMapping("/tsscgames")
 	public String indexGame(Model model) {
-		model.addAttribute("tsscgames", gameService.findAll());
+		model.addAttribute("tsscgames", businessDelegate.findAllGames());
 		return "tsscgames/index";
 	}
 	
