@@ -57,8 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		httpSecurity
 			.authorizeRequests()
-				.antMatchers("/tsscadmin/**")
-				.hasAnyRole("admin","superadmin")				
+				.antMatchers("/tsscadmin/**", "/api/**")
+				.hasAnyRole("admin","superadmin")		
+				.antMatchers("/api/**").permitAll()
 				.anyRequest()
 				.authenticated()
 				.and()
