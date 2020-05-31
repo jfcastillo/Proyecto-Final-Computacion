@@ -1,5 +1,6 @@
 package com.taller.castillo.felipe.controller;
 
+import com.taller.castillo.felipe.delegate.BusinessDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +23,13 @@ import com.taller.castillo.felipe.service.TsscTopicService;
 public class TsscTopicController {
 	@Autowired
 	private TsscTopicService topicService;
+
+	@Autowired
+	private BusinessDelegate businessDelegate;
 	
 	@GetMapping("/tssctopics/")
 	public String indexTopic(Model model) {
-		model.addAttribute("tssctopics", topicService.findAll());
+		model.addAttribute("tssctopics", businessDelegate.findAllTopics());
 		return "tssctopics/index";
 	}
 	

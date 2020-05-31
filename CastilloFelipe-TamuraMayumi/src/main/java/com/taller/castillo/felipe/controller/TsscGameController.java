@@ -77,7 +77,7 @@ public class TsscGameController {
 		TsscGame game = gameService.findById(id).get();
 		idGame = id;
 		model.addAttribute("tsscGame", game);
-		model.addAttribute("tssctopics", topicService.findAll());
+		model.addAttribute("tssctopics", businessDelegate.findAllTopics());
 		if(game.getTsscTopic() != null) {
 			model.addAttribute("topicActual", game.getTsscTopic().getName());
 		}
