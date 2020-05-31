@@ -28,65 +28,65 @@ import com.taller.castillo.felipe.service.TsscTopicService;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-
 class TsscTopicTest {
 
-	
-	
-	@Autowired
-	private TsscTopicService topicService;
-	
-	private TsscTopic topic;
 
-	
+    @Autowired
+    private TsscTopicService topicService;
+
+    private TsscTopic topic;
+
+
 //	public TsscTopicTest(TsscTopicService topicService) {
 //		this.topicService = topicService;
 //	}
 
-	public void setUp() {
-		topic = new TsscTopic();
-		topic.setDescription("Topic description");
-		topic.setGroupPrefix("TD");
-		topic.setName("Topic");
-		topic.setDefaultGroups(1);
-		topic.setDefaultSprints(1);
-		try {
-			topic = topicService.createTopic(topic);
-		} catch (ZeroGroupSprintException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-	@DisplayName("Crear topic")
-	@Test
-	public void testCreateTopic() {
-		setUp();		
-		TsscTopic ntopic = new TsscTopic();		
-		ntopic.setDefaultGroups(12);
-		ntopic.setDefaultSprints(8);		
-		try {
-			TsscTopic newTopic = topicService.createTopic(ntopic);
-			assertTrue(newTopic == ntopic);
-		} catch (ZeroGroupSprintException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public void setUp() {
+        topic = new TsscTopic();
+        topic.setDescription("Topic description");
+        topic.setGroupPrefix("TD");
+        topic.setName("Topic");
+        topic.setDefaultGroups(1);
+        topic.setDefaultSprints(1);
+        try {
+            topic = topicService.createTopic(topic);
+        } catch (ZeroGroupSprintException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	}
-	@DisplayName("Editar topic")
-	@Test
-	public void testEditTopic() {
-		setUp();
-		topic.setName("Topic edited");
-		try {
-			TsscTopic ntopic = topicService.editTopic(topic);
-			assertTrue(topic.getName().equals(ntopic.getName()));
-		} catch (EditException | ZeroGroupSprintException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    @DisplayName("Crear topic")
+    @Test
+    public void testCreateTopic() {
+        setUp();
+        TsscTopic ntopic = new TsscTopic();
+        ntopic.setDefaultGroups(12);
+        ntopic.setDefaultSprints(8);
+        try {
+            TsscTopic newTopic = topicService.createTopic(ntopic);
+            assertTrue(newTopic == ntopic);
+        } catch (ZeroGroupSprintException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-	}
-	
+    }
+
+    @DisplayName("Editar topic")
+    @Test
+    public void testEditTopic() {
+        setUp();
+        topic.setName("Topic edited");
+        try {
+            TsscTopic ntopic = topicService.editTopic(topic);
+            assertTrue(topic.getName().equals(ntopic.getName()));
+        } catch (EditException | ZeroGroupSprintException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

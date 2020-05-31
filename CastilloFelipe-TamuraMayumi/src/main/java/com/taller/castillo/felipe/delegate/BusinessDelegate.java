@@ -1,7 +1,5 @@
 package com.taller.castillo.felipe.delegate;
 
-import java.util.Optional;
-
 import com.taller.castillo.felipe.model.TsscGame;
 import com.taller.castillo.felipe.model.TsscStory;
 import com.taller.castillo.felipe.model.TsscTopic;
@@ -18,7 +16,7 @@ public interface BusinessDelegate {
 	public TsscTopic getTopic(long idTopic);
 	public Iterable<TsscTopic> findAllTopics();
 	public TsscTopic saveTopic(TsscTopic topic);
-	public TsscTopic editTopic(TsscTopic topic);
+	public void editTopic(long id, TsscTopic topic);
 	public void deleteTopic(long id);
 	
 	//TsscStory ----------------------------
