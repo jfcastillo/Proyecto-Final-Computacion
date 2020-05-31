@@ -1,28 +1,18 @@
 package com.taller.castillo.felipe.controller;
 
 import com.taller.castillo.felipe.delegate.BusinessDelegate;
+import com.taller.castillo.felipe.model.TsscTopic;
+import com.taller.castillo.felipe.model.ValidationGroupCreate;
+import com.taller.castillo.felipe.model.ValidationGroupEdit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.taller.castillo.felipe.exception.EditException;
-import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
-import com.taller.castillo.felipe.model.TsscTopic;
-import com.taller.castillo.felipe.model.ValidationGroupCreate;
-import com.taller.castillo.felipe.model.ValidationGroupEdit;
-import com.taller.castillo.felipe.service.TsscTopicService;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class TsscTopicController {
-	@Autowired
-	private TsscTopicService topicService;
 
 	@Autowired
 	private BusinessDelegate businessDelegate;
@@ -59,13 +49,7 @@ public class TsscTopicController {
 	@GetMapping("/tssctopics/del/{id}")
 	public String deleteTopic(@PathVariable("id") long id) {
 		
-		TsscTopic topic = businessDelegate.getTopic(id);
-		if (topic == null) {
-			throw new IllegalArgumentException("Tema inválido");
-		}
-		else {
-			topicService.deleteTopic(topic);
-		}
+		businessDelegate.deleteTopic(id);
 		return "redirect:/tssctopics/";		
 	}
 	
@@ -83,13 +67,10 @@ public class TsscTopicController {
 			return "tssctopics/edit-topic";	
 		}
 		if (action != null && !action.equals("Cancelar")) {
-			try {
-				topicService.editTopic(topic);
-			} catch (EditException | ZeroGroupSprintException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}	
+			businessDelegate.editTopic(topic);
+		}
+		
+		
 		return "redirect:/tssctopics/";	
 	}
 	

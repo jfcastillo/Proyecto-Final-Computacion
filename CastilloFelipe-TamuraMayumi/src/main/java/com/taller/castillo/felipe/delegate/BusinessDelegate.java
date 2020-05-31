@@ -19,7 +19,7 @@ public interface BusinessDelegate {
 	public Iterable<TsscTopic> findAllTopics();
 	public TsscTopic saveTopic(TsscTopic topic);
 	public TsscTopic editTopic(TsscTopic topic);
-	public void deleteTopic(TsscTopic topic);
+	public void deleteTopic(long id);
 	
 	//TsscStory ----------------------------
 	public TsscStory getStory(long idStory);
