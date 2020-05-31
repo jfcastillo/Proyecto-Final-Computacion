@@ -67,7 +67,7 @@ public class TsscTopicController {
 			return "tssctopics/edit-topic";	
 		}
 		if (action != null && !action.equals("Cancelar")) {
-			businessDelegate.editTopic(topic);
+			businessDelegate.editTopic(id, topic);
 		}
 		
 		

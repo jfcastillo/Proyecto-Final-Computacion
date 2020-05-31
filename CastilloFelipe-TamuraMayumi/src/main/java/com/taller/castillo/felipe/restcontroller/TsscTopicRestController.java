@@ -1,6 +1,7 @@
 package com.taller.castillo.felipe.restcontroller;
 
 import com.taller.castillo.felipe.exception.EditException;
+import com.taller.castillo.felipe.exception.NullTopicException;
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscTopic;
 import com.taller.castillo.felipe.service.TsscTopicService;
@@ -30,25 +31,27 @@ public class TsscTopicRestController {
         }
         return createdTopic;
     }
-    
+
     @GetMapping(value = "/tssctopics/{id}")
-    public TsscTopic findById(@PathVariable long id){
+    public TsscTopic findById(@PathVariable long id) {
         return tsscTopicService.findById(id).get();
     }
-    
-    @PostMapping("/tssctopics/edit")
-    public TsscTopic editTopic(@RequestBody TsscTopic topic) {
+
+    @PutMapping("/tssctopics/{id}")
+    public TsscTopic editTopic(@PathVariable long id, @RequestBody TsscTopic topic) {
         TsscTopic createdTopic = null;
-        try {
-            createdTopic = tsscTopicService.editTopic(topic);
-        } catch (ZeroGroupSprintException | EditException e) {
-            e.printStackTrace();
+        if (tsscTopicService.findById(id) != null) {
+            try {
+                createdTopic = tsscTopicService.editTopic(topic);
+            } catch (ZeroGroupSprintException | EditException e) {
+                e.printStackTrace();
+            }
         }
         return createdTopic;
     }
 
     @DeleteMapping(value = "/tssctopics/{id}")
-    public void deleteTopic(@PathVariable long id){
+    public void deleteTopic(@PathVariable long id) {
         Optional<TsscTopic> topic = tsscTopicService.findById(id);
         tsscTopicService.deleteTopic(topic.get());
     }

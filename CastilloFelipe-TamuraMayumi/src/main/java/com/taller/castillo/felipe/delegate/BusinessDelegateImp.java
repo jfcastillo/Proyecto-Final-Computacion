@@ -99,15 +99,8 @@ public class BusinessDelegateImp implements BusinessDelegate {
     }
 
     @Override
-    public TsscTopic editTopic(TsscTopic topic) {
-        TsscTopic response = null;
-        ResponseEntity<TsscTopic> responseTopic = restTemplate.postForEntity(LOCAL_URL + "api/tssctopics/edit/",
-                topic, TsscTopic.class);
-        if (responseTopic.getStatusCode() == HttpStatus.OK) {
-            response = responseTopic.getBody();
-        }
-
-        return response;
+    public void editTopic(long id, TsscTopic topic) {
+        restTemplate.put(LOCAL_URL + "api/tssctopics    /"+id, topic);
     }
 
     @Override

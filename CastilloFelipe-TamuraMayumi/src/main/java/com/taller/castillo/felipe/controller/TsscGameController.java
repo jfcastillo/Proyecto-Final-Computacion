@@ -28,8 +28,6 @@ public class TsscGameController {
 	@Autowired
 	private TsscGameService gameService;
 	@Autowired
-	private TsscTopicService topicService;
-	@Autowired
 	private BusinessDelegate businessDelegate;
 
 	private long idGame;
