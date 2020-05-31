@@ -12,21 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.taller.castillo.felipe.delegate.BusinessDelegate;
-import com.taller.castillo.felipe.exception.EditException;
-import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscGame;
-import com.taller.castillo.felipe.model.TsscStory;
 import com.taller.castillo.felipe.model.TsscTopic;
 import com.taller.castillo.felipe.model.ValidationGroupCreate;
 import com.taller.castillo.felipe.model.ValidationGroupEdit;
 import com.taller.castillo.felipe.service.TsscGameService;
-import com.taller.castillo.felipe.service.TsscTopicService;
 
 @Controller
 public class TsscGameController {
 
-	@Autowired
-	private TsscGameService gameService;
 	@Autowired
 	private BusinessDelegate businessDelegate;
 
@@ -48,17 +42,13 @@ public class TsscGameController {
 	public String saveGame(@Validated(ValidationGroupCreate.class) @ModelAttribute TsscGame game,
 			BindingResult bindingResult, @RequestParam String action, Model model) {
 		if (bindingResult.hasErrors()) {
-
 			return "tsscgames/add-game";
 		}
 
 		if (!action.equals("cancel")) {
-
 			businessDelegate.saveGame(game);
-
 			return "redirect:/tsscgames/";
 		}
-
 		else {
 			return "redirect:/tsscgames/";
 		}
@@ -91,14 +81,14 @@ public class TsscGameController {
 		TsscGame game = businessDelegate.getGame(idGame);
 		game.setTsscTopic(topic);
 
-		businessDelegate.editGame(game);
+		businessDelegate.editGame(game.getId(), game);
 
 		return "redirect:/tsscgames/";
 	}
 
 	@GetMapping("/tsscgames/edit/{id}")
 	public String showEdit(@PathVariable("id") long id, Model model) {
-		TsscGame game = gameService.findById(id).get();
+		TsscGame game = businessDelegate.getGame(id);
 		model.addAttribute("tsscGame", game);
 		return "tsscgames/edit-game";
 	}
@@ -111,9 +101,7 @@ public class TsscGameController {
 			return "tsscgames/edit-game";
 		}
 		if (action != null && !action.equals("Cancelar")) {
-			
-				businessDelegate.editGame(game);
-			
+			businessDelegate.editGame(id, game);
 		}
 		return "redirect:/tsscgames/";
 	}

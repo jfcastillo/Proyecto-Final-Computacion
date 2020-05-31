@@ -10,7 +10,7 @@ public interface BusinessDelegate {
 	public TsscGame getGame(long idGame);
 	public Iterable<TsscGame> findAllGames(); 
 	public TsscGame saveGame(TsscGame game);
-	public TsscGame editGame(TsscGame game);
+	public void editGame(long id, TsscGame game);
 	
 	//TsscTopic ----------------------------
 	public TsscTopic getTopic(long idTopic);

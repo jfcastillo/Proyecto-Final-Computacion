@@ -35,14 +35,16 @@ public class TsscGameRestController {
 		}
 		return created;
 	}
-	@PutMapping("/tsscgames/")
-    public TsscGame editGame(@RequestBody TsscGame game) {
+	@PutMapping("/tsscgames/{id}")
+    public TsscGame editGame(@PathVariable long id, @RequestBody TsscGame game) {
 		TsscGame createdGame = null;
-        try {
-        	createdGame = gameService.editGame(game);
-        } catch (ZeroGroupSprintException | EditException e) {
-            e.printStackTrace();
-        }
+		if (gameService.findById(id) != null) {
+			try {
+	        	createdGame = gameService.editGame(game);
+	        } catch (ZeroGroupSprintException | EditException e) {
+	            e.printStackTrace();
+	        }
+		}        
         return createdGame;
     }
 

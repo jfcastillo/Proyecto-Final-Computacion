@@ -59,10 +59,10 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
     // Falta los metodos de editar
     @Override
-    public TsscGame editGame(TsscGame game) {
-        // TODO Auto-generated method stub
-        return null;
+    public void editGame(long id, TsscGame game) {
+        restTemplate.put(LOCAL_URL + "api/tsscgames/" + id, game);
     }
+
 
     //TsscTopic ---------------------------------------------------------------------------------------------------
     @Override
