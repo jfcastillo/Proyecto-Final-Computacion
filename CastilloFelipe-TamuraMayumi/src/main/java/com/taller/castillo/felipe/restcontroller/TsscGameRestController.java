@@ -3,6 +3,7 @@ package com.taller.castillo.felipe.restcontroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.taller.castillo.felipe.exception.EditException;
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscGame;
 import com.taller.castillo.felipe.service.TsscGameService;
@@ -16,8 +17,8 @@ public class TsscGameRestController {
 	
 	
 	@GetMapping("/tsscgames/{id}")
-	public TsscGame getGame(long idGame){
-		return gameService.findById(idGame).get();
+	public TsscGame findById(@PathVariable long id){
+		return gameService.findById(id).get();
 	}
 	@GetMapping("/tsscgames/")
 	public Iterable<TsscGame> findAllGames() {
@@ -34,5 +35,15 @@ public class TsscGameRestController {
 		}
 		return created;
 	}
+	@PutMapping("/tsscgames/")
+    public TsscGame editGame(@RequestBody TsscGame game) {
+		TsscGame createdGame = null;
+        try {
+        	createdGame = gameService.editGame(game);
+        } catch (ZeroGroupSprintException | EditException e) {
+            e.printStackTrace();
+        }
+        return createdGame;
+    }
 
 }
