@@ -46,16 +46,10 @@ public class TsscTopicController {
 			@RequestParam(value = "action", required = true) String action, Model model) {
 		if (bindingResult.hasErrors()) {			
 			return "tssctopics/add-topic";
-			//return addTopic(model);
-		} 
+		}
 		
 		if (!action.equals("cancel")) {
-			try {
-				topicService.createTopic(topic);
-			} catch (ZeroGroupSprintException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			businessDelegate.saveTopic(topic);
 			return "redirect:/tssctopics/";
 		}	
 		else {

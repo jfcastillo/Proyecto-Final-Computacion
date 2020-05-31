@@ -1,11 +1,10 @@
 package com.taller.castillo.felipe.restcontroller;
 
+import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscTopic;
 import com.taller.castillo.felipe.service.TsscTopicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -16,5 +15,16 @@ public class TsscTopicRestController {
     @GetMapping(value = "/tssctopics")
     public Iterable<TsscTopic> findAll(){
         return tsscTopicService.findAll();
+    }
+
+    @PostMapping("/tssctopics")
+    public TsscTopic createTopic(@RequestBody TsscTopic topic) {
+        TsscTopic createdTopic = null;
+        try {
+            createdTopic= tsscTopicService.createTopic(topic);
+        } catch (ZeroGroupSprintException e) {
+            e.printStackTrace();
+        }
+        return createdTopic;
     }
 }

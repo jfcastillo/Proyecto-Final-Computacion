@@ -1,10 +1,7 @@
 package com.taller.castillo.felipe.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscGame;
@@ -28,12 +25,11 @@ public class TsscGameRestController {
 	}
 	
 	@PostMapping("/tsscgames/")
-	public TsscGame saveGame(TsscGame game) {
+	public TsscGame saveGame(@RequestBody TsscGame game) {
 		TsscGame created = null;
 		try {
 			created = gameService.createGame(game);
 		} catch (ZeroGroupSprintException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return created;
