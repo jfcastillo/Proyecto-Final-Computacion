@@ -26,12 +26,12 @@ public class TsscStoryController {
 
 	@Autowired
 	private TsscStoryService storyService;
-	
+
 	@Autowired
 	private BusinessDelegate businessDelegate;
-	
+
 	private long idGame;
-	
+
 //	@GetMapping("/tsscstory/")
 //	public String indexStory(@PathVariable("id") long id, Model model) {
 //		model.addAttribute("tsscstories", businessDelegate.findAllStories());
@@ -47,50 +47,38 @@ public class TsscStoryController {
 		model.addAttribute("tsscStory", new TsscStory());
 		return "tsscstory/add-story";
 	}
-	
+
 	@PostMapping("tsscstory/add")
 	public String saveStory(@Validated(ValidationGroupCreate.class) @ModelAttribute TsscStory story,
-			BindingResult bindingResult,@RequestParam String action, Model model) {
-		
-		if (bindingResult.hasErrors()) {	
-			
+			BindingResult bindingResult, @RequestParam String action, Model model) {
+
+		if (bindingResult.hasErrors()) {
 			return "tsscstory/add-story";
-		} 
+		}
 		if (!action.equals("cancel")) {
-			try {
-				storyService.createStory(story, this.idGame);
-			} catch (StoryException | NullGameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			businessDelegate.saveStory(story, this.idGame);
 			return "redirect:/tsscgames/";
 		}
-		
 		return "redirect:/tsscgames/";
-		
-	}		
-	
+	}
+
 	@GetMapping("/tsscstory/edit/{id}")
 	public String showEdit(@PathVariable("id") long id, Model model) {
 		TsscStory story = businessDelegate.getStory(id);
 		model.addAttribute("tsscStory", story);
 		return "tsscstory/edit-story";
 	}
-	
+
 	@PostMapping("/tsscstory/edit/{id}")
-	public String editStory(@PathVariable("id") long id, @RequestParam(value = "action", required = true) String action, 
-			@Validated(ValidationGroupEdit.class) @ModelAttribute TsscStory story, BindingResult bindingResult, Model model) {
-		
+	public String editStory(@PathVariable("id") long id, @RequestParam(value = "action", required = true) String action,
+			@Validated(ValidationGroupEdit.class) @ModelAttribute TsscStory story, BindingResult bindingResult,
+			Model model) {
+
 		if (bindingResult.hasErrors()) {
 			return "tsscstory/edit-story";
 		}
 		if (action != null && !action.equals("Cancelar")) {
-			try {
-				storyService.createStory(story, this.idGame);
-			} catch (StoryException  | NullGameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			businessDelegate.saveStory(story, this.idGame);
 		}
 		return "redirect:/tsscgames/";
 	}
