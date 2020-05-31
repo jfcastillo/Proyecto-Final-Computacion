@@ -54,12 +54,9 @@ public class TsscGameController {
 		} 
 		
 		if (!action.equals("cancel")) {
-			try {
-				gameService.createGame(game);
-			} catch (ZeroGroupSprintException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+				businessDelegate.saveGame(game);
+			
 			return "redirect:/tsscgames/";
 		}	
 		

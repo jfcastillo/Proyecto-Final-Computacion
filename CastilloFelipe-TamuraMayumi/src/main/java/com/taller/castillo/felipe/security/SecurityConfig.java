@@ -55,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
 //		.permitAll().and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 		
-		httpSecurity
+		httpSecurity.csrf().disable()
 			.authorizeRequests()
 				.antMatchers("/tsscadmin/**", "/api/**")
 				.hasAnyRole("admin","superadmin")		

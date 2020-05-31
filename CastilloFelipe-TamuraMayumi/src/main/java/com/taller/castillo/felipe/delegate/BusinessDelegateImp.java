@@ -51,6 +51,7 @@ public class BusinessDelegateImp implements BusinessDelegate{
 	public TsscGame saveGame(TsscGame game) {
 		TsscGame response = null;
 		ResponseEntity<TsscGame> responseGame = restTemplate.postForEntity(LOCAL_URL + "api/tsscgames/", game, TsscGame.class);
+		System.out.println(responseGame.getStatusCode());
 		if ( responseGame.getStatusCode() == HttpStatus.OK) {
 			response = responseGame.getBody();
 		}	
