@@ -2,6 +2,7 @@ package com.taller.castillo.felipe.delegate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -96,10 +97,9 @@ public class BusinessDelegateImp implements BusinessDelegate{
 		if ( responseTopic.getStatusCode() == HttpStatus.OK) {
 			response = responseTopic.getBody();
 		}	
-		
 		return response;
 	}
-	// Falta los metodos de editar
+	
 	@Override
 	public TsscTopic editTopic(TsscTopic topic) {
 		// TODO Auto-generated method stub

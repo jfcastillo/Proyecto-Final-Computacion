@@ -36,13 +36,11 @@ public class TsscTopicController {
 	@GetMapping("/tssctopics/add")
 	public String addTopic(Model model) {
 		model.addAttribute("tsscTopic", new TsscTopic());
-		
 		return "tssctopics/add-topic";
 	}
 
-
 	@PostMapping("/tssctopics/add")
-	public String saveTopic(@Validated(ValidationGroupCreate.class) @ModelAttribute TsscTopic topic,	BindingResult bindingResult,
+	public String saveTopic(@Validated(ValidationGroupCreate.class) @ModelAttribute TsscTopic topic, BindingResult bindingResult,
 			@RequestParam(value = "action", required = true) String action, Model model) {
 		if (bindingResult.hasErrors()) {			
 			return "tssctopics/add-topic";
@@ -61,7 +59,7 @@ public class TsscTopicController {
 	@GetMapping("/tssctopics/del/{id}")
 	public String deleteTopic(@PathVariable("id") long id) {
 		
-		TsscTopic topic = topicService.findById(id).get();
+		TsscTopic topic = businessDelegate.getTopic(id);
 		if (topic == null) {
 			throw new IllegalArgumentException("Tema inválido");
 		}
@@ -73,10 +71,11 @@ public class TsscTopicController {
 	
 	@GetMapping("tssctopics/edit/{id}")
 	public String showEdit(@PathVariable("id") long id, Model model) {
-		TsscTopic topic = topicService.findById(id).get();
+		TsscTopic topic = businessDelegate.getTopic(id);
 		model.addAttribute("tsscTopic", topic);
 		return "tssctopics/edit-topic";		
 	}
+	
 	@PostMapping("tssctopics/edit/{id}")
 	public String editTopic(@PathVariable("id") long id, @RequestParam(value = "action", required = true) String action, 
 			@Validated(ValidationGroupEdit.class) @ModelAttribute TsscTopic topic, BindingResult bindingResult, Model model) {
@@ -90,9 +89,8 @@ public class TsscTopicController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		
-		
+		}	
 		return "redirect:/tssctopics/";	
 	}
+	
 }

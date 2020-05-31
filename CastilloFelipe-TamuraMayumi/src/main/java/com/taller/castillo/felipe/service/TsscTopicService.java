@@ -6,6 +6,7 @@ import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscTopic;
 
 public interface TsscTopicService {
+	
 	public TsscTopic createTopic(TsscTopic topic) throws ZeroGroupSprintException;
 	public TsscTopic editTopic(TsscTopic topic) throws EditException, ZeroGroupSprintException;
 	public TsscTopic getTopic(long id) throws ZeroGroupSprintException;

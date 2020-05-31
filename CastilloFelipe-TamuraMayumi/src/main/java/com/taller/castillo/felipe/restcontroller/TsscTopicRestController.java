@@ -3,6 +3,7 @@ package com.taller.castillo.felipe.restcontroller;
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscTopic;
 import com.taller.castillo.felipe.service.TsscTopicService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,4 +28,10 @@ public class TsscTopicRestController {
         }
         return createdTopic;
     }
+    
+    @GetMapping(value = "/tssctopics/{id}")
+    public TsscTopic findById(long id){
+        return tsscTopicService.findById(id).get();
+    }
+
 }

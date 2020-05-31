@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.taller.castillo.felipe.delegate.BusinessDelegate;
 import com.taller.castillo.felipe.exception.EditException;
 import com.taller.castillo.felipe.exception.NullGameException;
 import com.taller.castillo.felipe.exception.StoryException;
@@ -19,16 +20,21 @@ import com.taller.castillo.felipe.model.ValidationGroupCreate;
 import com.taller.castillo.felipe.model.ValidationGroupEdit;
 import com.taller.castillo.felipe.service.TsscGameService;
 import com.taller.castillo.felipe.service.TsscStoryService;
+
 @Controller
 public class TsscStoryController {
+
 	@Autowired
 	private TsscStoryService storyService;
+	
+	@Autowired
+	private BusinessDelegate businessDelegate;
 	
 	private long idGame;
 	
 //	@GetMapping("/tsscstory/")
 //	public String indexStory(@PathVariable("id") long id, Model model) {
-//		model.addAttribute("tsscstories", storyService.findAll());
+//		model.addAttribute("tsscstories", businessDelegate.findAllStories());
 //		
 //		
 //		return "tsscstory/index";
@@ -66,7 +72,7 @@ public class TsscStoryController {
 	
 	@GetMapping("/tsscstory/edit/{id}")
 	public String showEdit(@PathVariable("id") long id, Model model) {
-		TsscStory story = storyService.findById(id).get();
+		TsscStory story = businessDelegate.getStory(id);
 		model.addAttribute("tsscStory", story);
 		return "tsscstory/edit-story";
 	}
