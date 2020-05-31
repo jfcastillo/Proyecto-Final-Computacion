@@ -30,7 +30,7 @@ public class TsscTopicRestController {
     }
     
     @GetMapping(value = "/tssctopics/{id}")
-    public TsscTopic findById(long id){
+    public TsscTopic findById(@PathVariable long id){
         return tsscTopicService.findById(id).get();
     }
 
