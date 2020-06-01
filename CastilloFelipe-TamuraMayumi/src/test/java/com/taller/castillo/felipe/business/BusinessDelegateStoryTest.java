@@ -18,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import com.taller.castillo.felipe.delegate.BusinessDelegate;
 import com.taller.castillo.felipe.delegate.BusinessDelegateImp;
 import com.taller.castillo.felipe.model.TsscStory;
-import com.taller.castillo.felipe.model.TsscTopic;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BusinessDelegateStoryTest {
@@ -31,12 +30,31 @@ public class BusinessDelegateStoryTest {
 
     @Test
     public void successOnGetStory() {
-    	// TODO Auto-generated method stub
+    	//Given
+    	TsscStory story = new TsscStory();
+    	story.setDescription("PruebaDescription");
+    	ResponseEntity<TsscStory> responseEntity = new ResponseEntity<TsscStory>(story, HttpStatus.OK);
+    	
+    	//When
+    	when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscStory.class))).thenReturn(responseEntity);
+    	TsscStory storyResponse = businessDelegate.getStory(2);
+    	
+    	//Then
+    	Assert.assertNotNull(storyResponse);
+    	Assert.assertEquals(storyResponse.getDescription(), "PruebaDescription");
     }
     
     @Test
     public void serverErrorOnGetStory() {
-    	// TODO Auto-generated method stub
+    	//Given
+        ResponseEntity responseEntity = new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        //When
+        when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscStory.class))).thenReturn(responseEntity);
+        TsscStory storyResponse = businessDelegate.getStory(2);
+        
+        //Then
+        Assert.assertNull(storyResponse);
     }
     
     @Test
@@ -68,9 +86,9 @@ public class BusinessDelegateStoryTest {
     	
     	//When
     	when(restTemplate.postForEntity(anyString(), any(TsscStory.class), Mockito.eq(TsscStory.class))).thenReturn(responseEntity);
+    	TsscStory storyResponse = businessDelegate.saveStory(story, 1);
     	
     	//Then
-    	TsscStory storyResponse = businessDelegate.saveStory(story, 1);
     	Assert.assertNotNull(storyResponse);
     	Assert.assertEquals(storyResponse.getDescription(), "PruebaDescription");
     }
@@ -82,9 +100,9 @@ public class BusinessDelegateStoryTest {
 
     	//When
     	when(restTemplate.postForEntity(anyString(), any(TsscStory.class), Mockito.eq(TsscStory.class))).thenReturn(responseEntity);
+    	TsscStory storyResponse = businessDelegate.saveStory(new TsscStory(), 1);
     	
     	//Then
-    	TsscStory storyResponse = businessDelegate.saveStory(new TsscStory(), 1);
     	Assert.assertNull(storyResponse);
     }
     

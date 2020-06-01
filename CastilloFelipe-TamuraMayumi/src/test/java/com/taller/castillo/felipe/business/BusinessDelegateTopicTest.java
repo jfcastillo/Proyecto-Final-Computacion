@@ -38,9 +38,9 @@ public class BusinessDelegateTopicTest {
 
         //When
         when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscTopic.class))).thenReturn(responseEntity);
-
-        //Then
         TsscTopic topicResponse = businessDelegate.getTopic(2);
+        
+        //Then
         Assert.assertNotNull(topicResponse);
         Assert.assertEquals(topicResponse.getName(), "PruebaName");
     }
@@ -52,9 +52,9 @@ public class BusinessDelegateTopicTest {
 
         //When
         when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscTopic.class))).thenReturn(responseEntity);
-
-        //Then
         TsscTopic topicResponse = businessDelegate.getTopic(2);
+        
+        //Then
         Assert.assertNull(topicResponse);
     }
 
@@ -69,9 +69,9 @@ public class BusinessDelegateTopicTest {
 
         //When
         when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscTopic[].class))).thenReturn(responseEntity);
-
-        //Then
         Iterable<TsscTopic> topicResponse = businessDelegate.findAllTopics();
+        
+        //Then
         Assert.assertNotNull(topicResponse);
         Assert.assertEquals(topicResponse.iterator().next().getName(), "PruebaName");
     }
@@ -83,9 +83,9 @@ public class BusinessDelegateTopicTest {
 
         //When
         when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscTopic[].class))).thenReturn(responseEntity);
-
-        //Then
         Iterable<TsscTopic> topicResponse = businessDelegate.findAllTopics();
+        
+        //Then
         Assert.assertNull(topicResponse);
     }
 
@@ -98,9 +98,9 @@ public class BusinessDelegateTopicTest {
 
         //When
         when(restTemplate.postForEntity(anyString(), any(TsscTopic.class), Mockito.eq(TsscTopic.class))).thenReturn(responseEntity);
-
-        //Then
         TsscTopic topicResponse = businessDelegate.saveTopic(topic);
+        
+        //Then
         Assert.assertNotNull(topicResponse);
         Assert.assertEquals(topicResponse.getName(), "PruebaName");
     }
@@ -112,9 +112,9 @@ public class BusinessDelegateTopicTest {
 
         //When
         when(restTemplate.postForEntity(anyString(), any(TsscTopic.class), Mockito.eq(TsscTopic.class))).thenReturn(responseEntity);
-
-        //Then
         TsscTopic topicResponse = businessDelegate.saveTopic(new TsscTopic());
+        
+        //Then
         Assert.assertNull(topicResponse);
     }
 
