@@ -11,8 +11,7 @@ public interface BusinessDelegate {
 	public TsscGame getGame(long idGame);
 	public Iterable<TsscGame> findAllGames(); 
 	public TsscGame saveGame(TsscGame game);
-	public void editGame(long id, TsscGame game);
-	public Iterable<TsscTimecontrol> findAllTimeControlByGameId(long gameId); 
+	public void editGame(long id, TsscGame game);	
 	
 	//TsscTopic ----------------------------
 	public TsscTopic getTopic(long idTopic);
@@ -26,7 +25,14 @@ public interface BusinessDelegate {
 	public Iterable<TsscStory> findAllStories();
 	public Iterable<TsscStory> findStoriesByGameId(long gameId);
 	public TsscStory saveStory(TsscStory story, long gameId);
-	public TsscStory editStory(TsscStory story);
-	public void deleteStory(TsscStory story);
+	public void editStory(long id, TsscStory story);
+	public void deleteStory(long id);
+	
+	//TsscTimecontrol ----------------------------
+	public Iterable<TsscTimecontrol> findAllTimeControlByGameId(long gameId); 
+	public TsscTimecontrol getTimeControl(long idTimecontrol);
+	public TsscTimecontrol saveTimeControl(TsscTimecontrol timecontrol, long gameId);
+	public void editTimeControl(long id, TsscTimecontrol timecontrol);
+	public void deletTimeControl(long id);
 
 }

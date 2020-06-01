@@ -12,34 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.taller.castillo.felipe.delegate.BusinessDelegate;
-import com.taller.castillo.felipe.exception.EditException;
-import com.taller.castillo.felipe.exception.NullGameException;
-import com.taller.castillo.felipe.exception.StoryException;
 import com.taller.castillo.felipe.model.TsscStory;
 import com.taller.castillo.felipe.model.ValidationGroupCreate;
 import com.taller.castillo.felipe.model.ValidationGroupEdit;
-import com.taller.castillo.felipe.service.TsscGameService;
-import com.taller.castillo.felipe.service.TsscStoryService;
 
 @Controller
 public class TsscStoryController {
 
 	@Autowired
-	private TsscStoryService storyService;
-
-	@Autowired
 	private BusinessDelegate businessDelegate;
 
 	private long idGame;
-
-//	@GetMapping("/tsscstory/")
-//	public String indexStory(@PathVariable("id") long id, Model model) {
-//		model.addAttribute("tsscstories", businessDelegate.findAllStories());
-//		
-//		
-//		return "tsscstory/index";
-//		
-//	}
 
 	@GetMapping("tsscstory/add/{id}")
 	public String addStory(@PathVariable("id") long idGame, Model model) {
@@ -78,9 +61,14 @@ public class TsscStoryController {
 			return "tsscstory/edit-story";
 		}
 		if (action != null && !action.equals("Cancelar")) {
-			businessDelegate.saveStory(story, this.idGame);
+			businessDelegate.editStory(id, story);
 		}
 		return "redirect:/tsscgames/";
 	}
 
+	@GetMapping("/tsscstory/del/{id}")
+	public String deleteStory(@PathVariable("id") long id) {
+		businessDelegate.deleteStory(id);
+		return "redirect:/tsscgames/";
+	}
 }

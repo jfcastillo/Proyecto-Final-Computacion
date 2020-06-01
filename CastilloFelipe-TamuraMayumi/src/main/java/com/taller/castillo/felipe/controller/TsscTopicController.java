@@ -48,9 +48,8 @@ public class TsscTopicController {
 	
 	@GetMapping("/tssctopics/del/{id}")
 	public String deleteTopic(@PathVariable("id") long id) {
-		
 		businessDelegate.deleteTopic(id);
-		return "redirect:/tssctopics/";		
+		return "redirect:/tssctopics/";	
 	}
 	
 	@GetMapping("tssctopics/edit/{id}")

@@ -1,11 +1,12 @@
 package com.taller.castillo.felipe.service;
 
 import com.taller.castillo.felipe.exception.EditException;
+import com.taller.castillo.felipe.exception.NullGameException;
 import com.taller.castillo.felipe.model.TsscTimecontrol;
 
 public interface TsscTimecontrolService {
 	
-	public TsscTimecontrol createTimecontrol(TsscTimecontrol timecontrol);
+	public TsscTimecontrol createTimecontrol(long idGame, TsscTimecontrol timecontrol)throws NullGameException;
 	public TsscTimecontrol editTimecontrol(TsscTimecontrol timecontrol) throws EditException;
 	public Iterable<TsscTimecontrol> findAll();
 	public TsscTimecontrol findById(long id);

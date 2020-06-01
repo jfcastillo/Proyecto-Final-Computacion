@@ -5,10 +5,14 @@ import com.taller.castillo.felipe.exception.StoryException;
 import com.taller.castillo.felipe.model.TsscStory;
 import com.taller.castillo.felipe.service.TsscStoryService;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +49,25 @@ public class TsscStoryRestController {
 			e.printStackTrace();
 		}
 		return createdStory;
+	}
+	
+	@PutMapping("/tsscstories/{id}")
+	public TsscStory editStory(@PathVariable long id, @RequestBody TsscStory tsscStory) {
+		TsscStory actualStory = null;
+		if(tsscStoryService.findById(id) != null) {
+			try {
+				actualStory = tsscStoryService.editStory(tsscStory);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return actualStory;
+	}
+	
+	@DeleteMapping(value = "/tsscstories/{id}")
+	public void deleteStory(@PathVariable long id) {
+		Optional<TsscStory> story = tsscStoryService.findById(id);
+		tsscStoryService.deleteStory(story.get());
 	}
 	
 }

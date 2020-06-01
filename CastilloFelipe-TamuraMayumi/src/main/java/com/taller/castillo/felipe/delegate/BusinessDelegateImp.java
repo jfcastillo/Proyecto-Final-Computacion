@@ -57,26 +57,12 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
         return response;
     }
-    
+
     @Override
     public void editGame(long id, TsscGame game) {
         restTemplate.put(LOCAL_URL + "api/tsscgames/" + id, game);
     }
     
-    @Override
-    public Iterable<TsscTimecontrol> findAllTimeControlByGameId(long gameId) {
-    	TsscTimecontrol[] timecontrols = null;
-        List<TsscTimecontrol> timecontrolIt;
-        ResponseEntity<TsscTimecontrol[]> responseTimecontrol = restTemplate.getForEntity(LOCAL_URL + "api/tssctimecontrol/game/"+gameId, TsscTimecontrol[].class);
-        if (responseTimecontrol.getStatusCode() == HttpStatus.OK) {
-        	timecontrols = responseTimecontrol.getBody();
-        }
-        timecontrolIt = Arrays.asList(timecontrols);
-
-        return timecontrolIt;
-    }
-
-
     //TsscTopic ---------------------------------------------------------------------------------------------------
     @Override
     public TsscTopic getTopic(long idTopic) {
@@ -168,15 +154,59 @@ public class BusinessDelegateImp implements BusinessDelegate {
     }
 
     @Override
-    public TsscStory editStory(TsscStory story) {
-        // TODO Auto-generated method stub
-        return null;
+    public void editStory(long id, TsscStory story) {
+    	restTemplate.put(LOCAL_URL + "api/tsscstories/"+id, story);
     }
 
     @Override
-    public void deleteStory(TsscStory story) {
-        restTemplate.delete(LOCAL_URL + story.getId());
-
+    public void deleteStory(long id) {
+        restTemplate.delete(LOCAL_URL + "api/tsscstories/"+ id);
     }
+
+    //TsscTimecontrol---------------------------------------------------------------------------------------------------
+
+    @Override
+    public Iterable<TsscTimecontrol> findAllTimeControlByGameId(long gameId) {
+    	TsscTimecontrol[] timecontrols = null;
+        List<TsscTimecontrol> timecontrolIt;
+        ResponseEntity<TsscTimecontrol[]> responseTimecontrol = restTemplate.getForEntity(LOCAL_URL + "api/tssctimecontrol/game/"+gameId, TsscTimecontrol[].class);
+        if (responseTimecontrol.getStatusCode() == HttpStatus.OK) {
+        	timecontrols = responseTimecontrol.getBody();
+        }
+        timecontrolIt = Arrays.asList(timecontrols);
+
+        return timecontrolIt;
+    }
+	@Override
+	public TsscTimecontrol getTimeControl(long idTimecontrol) {
+		TsscTimecontrol timecontrol = null;
+        ResponseEntity<TsscTimecontrol> responseTimecontrol = restTemplate.getForEntity(LOCAL_URL + "api/tssctimecontrol/" + idTimecontrol, TsscTimecontrol.class);
+        if (responseTimecontrol.getStatusCode() == HttpStatus.OK)
+        	timecontrol = responseTimecontrol.getBody();
+        return timecontrol;
+	}
+
+	@Override
+	public TsscTimecontrol saveTimeControl(TsscTimecontrol timecontrol, long gameId) {
+		TsscTimecontrol response = null;
+        ResponseEntity<TsscTimecontrol> responseStory = restTemplate.postForEntity(LOCAL_URL + "api/tssctimecontrol/game/"+gameId, timecontrol, TsscTimecontrol.class);
+        if (responseStory.getStatusCode() == HttpStatus.OK) {
+            response = responseStory.getBody();
+        }
+
+        return response;
+	}
+
+	@Override
+	public void editTimeControl(long id, TsscTimecontrol timecontrol) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deletTimeControl(long id) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
