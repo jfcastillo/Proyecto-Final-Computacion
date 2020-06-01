@@ -107,10 +107,17 @@ public class TsscStoryServiceImp implements TsscStoryService{
 	public Iterable<TsscStory> findAll() {
 		return storyDao.findAll();
 	}
+
 	@Transactional
 	@Override
 	public Optional<TsscStory> findById(long id) {
 		return Optional.of(storyDao.findById(id));
+	}
+
+	@Transactional
+	@Override
+	public Iterable<TsscStory> findByGameId(long id) {
+		return storyDao.findByGameId(id);
 	}
 	
 

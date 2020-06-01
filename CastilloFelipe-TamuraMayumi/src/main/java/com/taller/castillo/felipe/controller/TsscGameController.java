@@ -58,7 +58,7 @@ public class TsscGameController {
 	public String indexStory(@PathVariable("id") long idGame, Model model) {
 		TsscGame game = businessDelegate.getGame(idGame);
 		model.addAttribute("idGame", idGame);
-		model.addAttribute("tsscstories", game.getTsscStories());
+		model.addAttribute("tsscstories", businessDelegate.findStoriesByGameId(idGame));
 		return "/tsscstory/index";
 	}
 

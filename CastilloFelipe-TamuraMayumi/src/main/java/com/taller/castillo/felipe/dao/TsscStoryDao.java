@@ -11,5 +11,6 @@ public interface TsscStoryDao {
 	public void delete(TsscStory story);
 	public List<TsscStory> findAll();
 	public TsscStory findById(long id);
+	public List<TsscStory> findByGameId(long id);
 	public void deleteAll();
 }

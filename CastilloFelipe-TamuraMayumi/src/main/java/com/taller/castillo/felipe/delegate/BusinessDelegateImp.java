@@ -132,6 +132,19 @@ public class BusinessDelegateImp implements BusinessDelegate {
     }
 
     @Override
+    public Iterable<TsscStory> findStoriesByGameId(long gameId) {
+        TsscStory[] stories = null;
+        List<TsscStory> storiesIt;
+        ResponseEntity<TsscStory[]> responseStories = restTemplate.getForEntity(LOCAL_URL + "api/tsscstories/game/"+gameId, TsscStory[].class);
+        if (responseStories.getStatusCode() == HttpStatus.OK) {
+            stories = responseStories.getBody();
+        }
+        storiesIt = Arrays.asList(stories);
+
+        return storiesIt;
+    }
+
+    @Override
     public TsscStory saveStory(TsscStory story, long id) {
         TsscStory response = null;
         ResponseEntity<TsscStory> responseStory = restTemplate.postForEntity(LOCAL_URL + "api/tsscstories/game/"+id, story, TsscStory.class);

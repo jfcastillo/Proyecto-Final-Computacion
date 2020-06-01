@@ -8,7 +8,6 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.taller.castillo.felipe.model.TsscGame;
 import com.taller.castillo.felipe.model.TsscStory;
 @Repository
 public class TsscStoryDaoImp implements TsscStoryDao{
@@ -49,6 +48,14 @@ public class TsscStoryDaoImp implements TsscStoryDao{
 			story = list.get(0);
 		}
 		return story;
+	}
+
+	@Override
+	public List<TsscStory> findByGameId(long id) {
+		String query = "SELECT story from TsscStory story WHERE story.tsscGame.id = :id";
+		TypedQuery<TsscStory> tQuery = entityManager.createQuery(query, TsscStory.class).setParameter("id", id);
+		List<TsscStory> list = tQuery.getResultList();
+		return list;
 	}
 
 	@Override

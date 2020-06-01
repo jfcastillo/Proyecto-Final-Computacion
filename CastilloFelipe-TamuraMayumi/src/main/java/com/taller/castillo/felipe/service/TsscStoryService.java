@@ -13,5 +13,5 @@ public interface TsscStoryService {
 	public TsscStory editStory(TsscStory story) throws StoryException, EditException;
 	public Iterable<TsscStory> findAll();
 	public Optional<TsscStory> findById(long id);
-
+	public Iterable<TsscStory> findByGameId(long id);
 }

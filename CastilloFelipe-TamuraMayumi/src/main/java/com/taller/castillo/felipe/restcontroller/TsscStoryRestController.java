@@ -29,8 +29,13 @@ public class TsscStoryRestController {
 	public TsscStory findById(@PathVariable long id) {
 		return tsscStoryService.findById(id).get();
 	}
-	
-	@PostMapping(value = "/tsscstories")
+
+	@GetMapping(value = "/tsscstories/game/{id}")
+	public Iterable<TsscStory> findStoryByGameId(@PathVariable long id) {
+		return tsscStoryService.findByGameId(id);
+	}
+
+	@PostMapping(value = "/tsscstories/game/{gameId}")
 	public TsscStory createStory(@RequestBody TsscStory tsscStory, @PathVariable long gameId) {
 		TsscStory createdStory = null;
 		try {
