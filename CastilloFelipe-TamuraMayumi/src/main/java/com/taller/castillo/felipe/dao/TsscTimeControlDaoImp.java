@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.taller.castillo.felipe.model.TsscStory;
+
 import com.taller.castillo.felipe.model.TsscTimecontrol;
 @Repository
 public class TsscTimeControlDaoImp implements TsscTimeControlDao{
@@ -58,6 +58,14 @@ public class TsscTimeControlDaoImp implements TsscTimeControlDao{
 		String query = "DELETE FROM TsscTimecontrol";	
 		entityManager.createQuery(query).executeUpdate();
 		
+	}
+
+	@Override
+	public List<TsscTimecontrol> findByGameId(long id) {
+		String query = "SELECT timecontrol from TsscTimecontrol timecontrol WHERE timecontrol.tsscGame.id = :id";
+		TypedQuery<TsscTimecontrol> tQuery = entityManager.createQuery(query, TsscTimecontrol.class).setParameter("id", id);
+		List<TsscTimecontrol> list = tQuery.getResultList();
+		return list;
 	}
 
 }

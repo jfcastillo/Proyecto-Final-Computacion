@@ -2,6 +2,7 @@ package com.taller.castillo.felipe.delegate;
 
 import com.taller.castillo.felipe.model.TsscGame;
 import com.taller.castillo.felipe.model.TsscStory;
+import com.taller.castillo.felipe.model.TsscTimecontrol;
 import com.taller.castillo.felipe.model.TsscTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,11 +57,23 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
         return response;
     }
-
-    // Falta los metodos de editar
+    
     @Override
     public void editGame(long id, TsscGame game) {
         restTemplate.put(LOCAL_URL + "api/tsscgames/" + id, game);
+    }
+    
+    @Override
+    public Iterable<TsscTimecontrol> findAllTimeControlByGameId(long gameId) {
+    	TsscTimecontrol[] timecontrols = null;
+        List<TsscTimecontrol> timecontrolIt;
+        ResponseEntity<TsscTimecontrol[]> responseTimecontrol = restTemplate.getForEntity(LOCAL_URL + "api/tssctimecontrol/game/"+gameId, TsscTimecontrol[].class);
+        if (responseTimecontrol.getStatusCode() == HttpStatus.OK) {
+        	timecontrols = responseTimecontrol.getBody();
+        }
+        timecontrolIt = Arrays.asList(timecontrols);
+
+        return timecontrolIt;
     }
 
 
