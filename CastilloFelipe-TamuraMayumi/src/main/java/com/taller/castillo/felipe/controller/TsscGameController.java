@@ -105,5 +105,13 @@ public class TsscGameController {
 		}
 		return "redirect:/tsscgames/";
 	}
+	
+	@GetMapping("/tsscgames/timecontrol/{id}")
+	public String indexTimeControl(@PathVariable("id") long idGame, Model model) {
+		TsscGame game = businessDelegate.getGame(idGame);
+		model.addAttribute("idGame", idGame);
+		model.addAttribute("tssctimecontrols", businessDelegate.findAllTimeControlByGameId(idGame));
+		return "/tssctimecontrol/index";
+	}
 
 }

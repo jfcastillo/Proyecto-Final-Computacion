@@ -35,6 +35,7 @@
 								<th>Borrar</th>
 								<th>Historias</th>
 								<th>Tema</th>
+								<th>Cronograma</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,6 +54,8 @@
 									class="btn btn-primary"><i class="fas fa-file-alt"></i></a></td>
 								<td><a th:href="@{/tsscgames/topic/{id}(id=${tsscgame.id})}"
 									class="btn btn-primary"><i class="fas fa-stopwatch"></i></a></td>
+								<td><a th:href="@{/tsscgames/timecontrol/{id}(id=${tsscgame.id})}"
+									class="btn btn-primary"><i class="fas fa-calendar-alt"></i></a></td>
 							</tr>
 						</tbody>
 					</table>
