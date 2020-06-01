@@ -48,7 +48,7 @@
 					</table>
 				</div>
 				<p class="my-5" sec:authorize="hasRole('admin')">
-					<a href="/tsscgames/add" class="btn btn-primary">Adicionar <i class="fas fa-drum-steelpan"></i></a>
+					<a th:href="@{/tssctimecontrol/add/{id}(id=${idGame})}" class="btn btn-primary">Adicionar <i class="fas fa-drum-steelpan"></i></a>
 				</p>				
 			</div>
 		</div>
