@@ -9,26 +9,26 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.taller.castillo.felipe.model.TsscStory;
+
 @Repository
 public class TsscStoryDaoImp implements TsscStoryDao{
+	
 	@PersistenceContext
 	private EntityManager entityManager;
+	
 	@Override
 	public void save(TsscStory story) {
 		entityManager.persist(story);
-				
 	}
 
 	@Override
 	public TsscStory update(TsscStory story) {
 		return entityManager.merge(story);
-		
 	}
 
 	@Override
 	public void delete(TsscStory story) {
 		entityManager.remove(story);
-		
 	}
 
 	@Override
@@ -63,7 +63,5 @@ public class TsscStoryDaoImp implements TsscStoryDao{
 		String query = "DELETE FROM TsscStory";	
 		entityManager.createQuery(query).executeUpdate();
 	}
-
 	
-
 }

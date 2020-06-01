@@ -14,4 +14,6 @@ public interface TsscStoryService {
 	public Iterable<TsscStory> findAll();
 	public Optional<TsscStory> findById(long id);
 	public Iterable<TsscStory> findByGameId(long id);
+	public void deleteStory(TsscStory actualStory);
+	
 }
