@@ -120,5 +120,9 @@ public class TsscStoryServiceImp implements TsscStoryService{
 		return storyDao.findByGameId(id);
 	}
 	
+	@Override
+	public void deleteStory(TsscStory story) {
+		storyDao.delete(story);
+	}
 
 }

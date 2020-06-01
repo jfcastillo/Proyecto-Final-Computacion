@@ -57,7 +57,7 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
         return response;
     }
-    
+
     @Override
     public void editGame(long id, TsscGame game) {
         restTemplate.put(LOCAL_URL + "api/tsscgames/" + id, game);
@@ -113,7 +113,7 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
     @Override
     public void editTopic(long id, TsscTopic topic) {
-        restTemplate.put(LOCAL_URL + "api/tssctopics    /"+id, topic);
+        restTemplate.put(LOCAL_URL + "api/tssctopics/"+id, topic);
     }
 
     @Override
@@ -169,15 +169,13 @@ public class BusinessDelegateImp implements BusinessDelegate {
     }
 
     @Override
-    public TsscStory editStory(TsscStory story) {
-        // TODO Auto-generated method stub
-        return null;
+    public void editStory(long id, TsscStory story) {
+    	restTemplate.put(LOCAL_URL + "api/tsscstories/"+id, story);
     }
 
     @Override
-    public void deleteStory(TsscStory story) {
-        restTemplate.delete(LOCAL_URL + story.getId());
-
+    public void deleteStory(long id) {
+        restTemplate.delete(LOCAL_URL + "api/tsscstories/"+ id);
     }
 
 }
