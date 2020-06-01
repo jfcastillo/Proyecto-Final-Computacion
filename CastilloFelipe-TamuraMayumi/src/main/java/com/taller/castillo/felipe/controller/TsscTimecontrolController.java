@@ -25,20 +25,21 @@ public class TsscTimecontrolController {
 	
 	
 	@GetMapping("tssctimecontrol/add/{id}")
-	public String addTimecontrol(@PathVariable("id") long idGame, Model model) {
-		this.idGame = idGame;
+	public String addTimecontrol(@PathVariable("id") long id, Model model) {
+		idGame = id;
 		model.addAttribute("tsscTimecontrol", new TsscTimecontrol());
 		return "tssctimecontrol/add-timecontrol";
 	}
 	@PostMapping("tssctimecontrol/add")
 	public String saveTimecontrol(@ModelAttribute TsscTimecontrol timecontrol,
 			BindingResult bindingResult, @RequestParam String action, Model model) {
+		System.out.println(idGame);
 
 		if (bindingResult.hasErrors()) {
 			return "tssctimecontrol/add-timecontrol";
 		}
 		if (!action.equals("cancel")) {
-			businessDelegate.saveTimeControl(timecontrol, this.idGame);
+			businessDelegate.saveTimeControl(timecontrol, idGame);
 			return "redirect:/tsscgames/";
 		}
 		return "redirect:/tsscgames/";

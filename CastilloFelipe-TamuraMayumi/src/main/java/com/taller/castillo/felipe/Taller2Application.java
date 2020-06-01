@@ -12,12 +12,16 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
+import com.taller.castillo.felipe.exception.NullGameException;
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscAdmin;
 import com.taller.castillo.felipe.model.TsscGame;
+import com.taller.castillo.felipe.model.TsscTimecontrol;
 import com.taller.castillo.felipe.model.TsscTopic;
 import com.taller.castillo.felipe.service.TsscAdminServiceImp;
 import com.taller.castillo.felipe.service.TsscGameServiceImp;
+import com.taller.castillo.felipe.service.TsscTimecontrolService;
+import com.taller.castillo.felipe.service.TsscTimecontrolServiceImp;
 import com.taller.castillo.felipe.service.TsscTopicServiceImp;
 
 @SpringBootApplication
@@ -105,8 +109,18 @@ public class Taller2Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+//		TsscTimecontrolServiceImp timecontrol = c.getBean(TsscTimecontrolServiceImp.class);
+//		TsscTimecontrol control = new TsscTimecontrol();
+//		control.setAutostart("yes");
+//		control.setName("time control completa");
+//		control.setType("time");
+//		control.setState("active");
+//		try {
+//			timecontrol.createTimecontrol(1, control);
+//		} catch (NullGameException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
 

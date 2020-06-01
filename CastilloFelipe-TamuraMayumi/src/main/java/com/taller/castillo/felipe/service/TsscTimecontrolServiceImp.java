@@ -30,12 +30,12 @@ public class TsscTimecontrolServiceImp implements TsscTimecontrolService{
 	public TsscTimecontrol createTimecontrol(long idGame, TsscTimecontrol timecontrol) throws NullGameException{
 		if (gameDao.findById(idGame)  == null) {
 			throw new NullGameException("The game doesn't exist");
-
 		}
 		else {
 			
-			TsscGame game = gameDao.findById(idGame);
-//			game.addTsscTimecontrol(timecontrol);
+			TsscGame game = gameDao.findById(idGame);			
+			game.addTsscTimecontrol(timecontrol);
+			
 			timecontrol.setTsscGame(game);			
 			
 			
@@ -44,11 +44,9 @@ public class TsscTimecontrolServiceImp implements TsscTimecontrolService{
 			} catch (EditException | ZeroGroupSprintException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-		}
+			}			
+		}		
 		timecontrolDao.save(timecontrol);
-		
 		return timecontrol;
 	}
 	@Transactional

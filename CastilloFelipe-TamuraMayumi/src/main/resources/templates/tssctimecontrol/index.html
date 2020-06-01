@@ -35,10 +35,10 @@
 						</thead>
 						<tbody>
 							<tr th:each="tssctimecontrol : ${tssctimecontrols}">
-								<td class="text-info" th:text="tssctimecontrol.name"></td>
-								<td class="text-info" th:text="tssctimecontrol.autostart"></td>
-								<td class="text-info" th:text="tssctimecontrol.state"></td>
-								<td class="text-info" th:text="tssctimecontrol.type"></td>
+								<td class="text-info" th:text="${tssctimecontrol.name}"></td>
+								<td class="text-info" th:text="${tssctimecontrol.autostart}"></td>
+								<td class="text-info" th:text="${tssctimecontrol.state}"></td>
+								<td class="text-info" th:text="${tssctimecontrol.type}"></td>
 								<td><a sec:authorize="hasRole('admin')" th:href="@{/tssctimecontrol/edit/{id}(id=${tssctimecontrol.id})}"
 									class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
 								<td><a sec:authorize="hasRole('admin')" th:href="@{/tssctimecontrol/del/{id}(id=${tssctimecontrol.id})}"
