@@ -84,21 +84,9 @@ public class TsscStoryServiceImp implements TsscStoryService{
 
 		}
 		else{
-			TsscGame game = story.getTsscGame();
-			
-			
-			try {
-				if (game != null) {
-					story.setTsscGame(game);				
-					game.addTsscStory(story);
-					gameService.editGame(game);
-				}
-				
-			} catch (EditException | ZeroGroupSprintException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			storyDao.update(story);
+			TsscStory oldStory = storyDao.findById(story.getId());
+			story.setTsscGame(oldStory.getTsscGame());
+			story = storyDao.update(story);
 			return story;
 		}
 	}
@@ -120,6 +108,7 @@ public class TsscStoryServiceImp implements TsscStoryService{
 		return storyDao.findByGameId(id);
 	}
 	
+	@Transactional
 	@Override
 	public void deleteStory(TsscStory story) {
 		storyDao.delete(story);

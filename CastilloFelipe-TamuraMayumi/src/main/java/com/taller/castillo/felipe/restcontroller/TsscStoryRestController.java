@@ -58,7 +58,6 @@ public class TsscStoryRestController {
 			try {
 				actualStory = tsscStoryService.editStory(tsscStory);
 			} catch (Exception e) {
-				// TODO: handle exception
 				e.printStackTrace();
 			}
 		}
