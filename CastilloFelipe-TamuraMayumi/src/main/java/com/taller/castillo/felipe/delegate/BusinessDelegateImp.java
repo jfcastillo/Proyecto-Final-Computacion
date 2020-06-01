@@ -90,13 +90,12 @@ public class BusinessDelegateImp implements BusinessDelegate {
     @Override
     public Iterable<TsscTopic> findAllTopics() {
         TsscTopic[] topics = null;
-        List<TsscTopic> topicsIt;
+        List<TsscTopic> topicsIt = null;
         ResponseEntity<TsscTopic[]> responseTopics = restTemplate.getForEntity(LOCAL_URL + "api/tssctopics/", TsscTopic[].class);
         if (responseTopics.getStatusCode() == HttpStatus.OK) {
             topics = responseTopics.getBody();
+            topicsIt = Arrays.asList(topics);
         }
-        topicsIt = Arrays.asList(topics);
-
         return topicsIt;
     }
 
@@ -113,7 +112,7 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
     @Override
     public void editTopic(long id, TsscTopic topic) {
-        restTemplate.put(LOCAL_URL + "api/tssctopics    /"+id, topic);
+        restTemplate.put(LOCAL_URL + "api/tssctopics/"+id, topic);
     }
 
     @Override
