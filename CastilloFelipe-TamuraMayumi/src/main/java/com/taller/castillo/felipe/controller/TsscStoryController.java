@@ -24,15 +24,6 @@ public class TsscStoryController {
 
 	private long idGame;
 
-//	@GetMapping("/tsscstory/")
-//	public String indexStory(@PathVariable("id") long id, Model model) {
-//		model.addAttribute("tsscstories", businessDelegate.findAllStories());
-//		
-//		
-//		return "tsscstory/index";
-//		
-//	}
-
 	@GetMapping("tsscstory/add/{id}")
 	public String addStory(@PathVariable("id") long idGame, Model model) {
 		this.idGame = idGame;
