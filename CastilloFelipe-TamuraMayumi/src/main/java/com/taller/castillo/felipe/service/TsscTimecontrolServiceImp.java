@@ -59,9 +59,12 @@ public class TsscTimecontrolServiceImp implements TsscTimecontrolService{
 			throw new EditException("The timecontrol doesn't exist");
 		}
 		else {
+			TsscTimecontrol oldtimecontrol = timecontrolDao.findById(timecontrol.getId());
+			timecontrol.setTsscGame(oldtimecontrol.getTsscGame());
 			timecontrolDao.update(timecontrol);
+			return timecontrol;
 		}
-		return timecontrol;
+		
 	}
 	@Transactional
 	@Override
@@ -83,6 +86,12 @@ public class TsscTimecontrolServiceImp implements TsscTimecontrolService{
 	@Override
 	public Iterable<TsscTimecontrol> findByGameId(long id) {
 		return timecontrolDao.findByGameId(id);
+	}
+	@Transactional
+	@Override
+	public void deleteTimecontrol(TsscTimecontrol timecontrol) {
+		timecontrolDao.delete(timecontrol);
+		
 	}
 
 }

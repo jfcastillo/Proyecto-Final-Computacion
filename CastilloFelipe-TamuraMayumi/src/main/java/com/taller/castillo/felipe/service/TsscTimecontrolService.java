@@ -12,4 +12,5 @@ public interface TsscTimecontrolService {
 	public TsscTimecontrol findById(long id);
 	public void deleteAll();
 	public Iterable<TsscTimecontrol> findByGameId(long id);
+	public void deleteTimecontrol(TsscTimecontrol timecontrol);
 }

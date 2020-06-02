@@ -199,13 +199,13 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
 	@Override
 	public void editTimeControl(long id, TsscTimecontrol timecontrol) {
-		// TODO Auto-generated method stub
+		restTemplate.put(LOCAL_URL + "api/tssctimecontrol/"+id, timecontrol);
 		
 	}
 
 	@Override
 	public void deletTimeControl(long id) {
-		// TODO Auto-generated method stub
+		restTemplate.delete(LOCAL_URL + "api/tssctimecontrol/"+ id);
 		
 	}
 

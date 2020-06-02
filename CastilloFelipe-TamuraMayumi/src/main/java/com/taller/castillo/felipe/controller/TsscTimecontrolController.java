@@ -15,6 +15,7 @@ import com.taller.castillo.felipe.delegate.BusinessDelegate;
 import com.taller.castillo.felipe.model.TsscStory;
 import com.taller.castillo.felipe.model.TsscTimecontrol;
 import com.taller.castillo.felipe.model.ValidationGroupCreate;
+import com.taller.castillo.felipe.model.ValidationGroupEdit;
 @Controller
 public class TsscTimecontrolController {
 	
@@ -42,6 +43,31 @@ public class TsscTimecontrolController {
 			businessDelegate.saveTimeControl(timecontrol, idGame);
 			return "redirect:/tsscgames/";
 		}
+		return "redirect:/tsscgames/";
+	}
+	@GetMapping("/tssctimecontrol/edit/{id}")
+	public String showEdit(@PathVariable("id") long id, Model model) {
+		TsscTimecontrol timecontrol = businessDelegate.getTimeControl(id);
+		model.addAttribute("tsscTimecontrol", timecontrol);
+		return "tssctimecontrol/edit-timecontrol";
+	}
+
+	@PostMapping("/tssctimecontrol/edit/{id}")
+	public String editTimecontrol(@PathVariable("id") long id, @RequestParam(value = "action", required = true) String action,
+			@Validated(ValidationGroupEdit.class) @ModelAttribute TsscTimecontrol timecontrol, BindingResult bindingResult,
+			Model model) {
+
+		if (bindingResult.hasErrors()) {
+			return "tssctimecontrol/edit-timecontrol";
+		}
+		if (action != null && !action.equals("Cancelar")) {
+			businessDelegate.editTimeControl(id, timecontrol);
+		}
+		return "redirect:/tsscgames/";
+	}
+	@GetMapping("/tssctimecontrol/del/{id}")
+	public String deleteTimecontrol(@PathVariable("id") long id) {
+		businessDelegate.deletTimeControl(id);
 		return "redirect:/tsscgames/";
 	}
 }

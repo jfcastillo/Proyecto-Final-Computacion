@@ -1,9 +1,13 @@
 package com.taller.castillo.felipe.restcontroller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,5 +52,24 @@ public class TsscTimecontrolRestController {
 		}
 
 		return createdTimecontrol;
+	}
+	
+	@PutMapping("/tssctimecontrol/{id}")
+	public TsscTimecontrol editStory(@PathVariable long id, @RequestBody TsscTimecontrol timecontrol) {
+		TsscTimecontrol actualTimeControl = null;
+		if(timecontrolService.findById(id) != null) {
+			try {
+				actualTimeControl = timecontrolService.editTimecontrol(timecontrol);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return actualTimeControl;
+	}
+	
+	@DeleteMapping("/tssctimecontrol/{id}")
+	public void deleteStory(@PathVariable long id) {
+		TsscTimecontrol timecontrol = timecontrolService.findById(id);
+		timecontrolService.deleteTimecontrol(timecontrol);
 	}
 }
