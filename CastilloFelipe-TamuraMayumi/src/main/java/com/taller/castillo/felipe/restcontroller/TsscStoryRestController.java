@@ -40,11 +40,22 @@ public class TsscStoryRestController {
 	}
 
 	@PostMapping(value = "/tsscstories/game/{gameId}")
-	public TsscStory createStory(@RequestBody TsscStory tsscStory, @PathVariable long gameId) {
+	public TsscStory createStoryWithGame(@RequestBody TsscStory tsscStory, @PathVariable long gameId) {
 		TsscStory createdStory = null;
 		try {
 			createdStory = tsscStoryService.createStory(tsscStory, gameId);
 		} catch (StoryException | NullGameException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return createdStory;
+	}
+	@PostMapping(value = "/tsscstories/")
+	public TsscStory createStory(@RequestBody TsscStory tsscStory) {
+		TsscStory createdStory = null;
+		try {
+			createdStory = tsscStoryService.createStory(tsscStory);
+		} catch (StoryException | NullGameException  e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

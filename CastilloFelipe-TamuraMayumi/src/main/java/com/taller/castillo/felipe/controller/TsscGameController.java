@@ -57,6 +57,7 @@ public class TsscGameController {
 	@GetMapping("/tsscgames/story/{id}")
 	public String indexStory(@PathVariable("id") long idGame, Model model) {
 		TsscGame game = businessDelegate.getGame(idGame);
+		model.addAttribute("index", false);
 		model.addAttribute("idGame", idGame);
 		model.addAttribute("tsscstories", businessDelegate.findStoriesByGameId(idGame));
 		return "/tsscstory/index";

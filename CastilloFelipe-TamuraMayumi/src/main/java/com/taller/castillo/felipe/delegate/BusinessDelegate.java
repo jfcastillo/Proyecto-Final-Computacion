@@ -25,6 +25,7 @@ public interface BusinessDelegate {
 	public Iterable<TsscStory> findAllStories();
 	public Iterable<TsscStory> findStoriesByGameId(long gameId);
 	public TsscStory saveStory(TsscStory story, long gameId);
+	public TsscStory saveStory(TsscStory story);
 	public void editStory(long id, TsscStory story);
 	public void deleteStory(long id);
 	

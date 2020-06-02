@@ -152,6 +152,16 @@ public class BusinessDelegateImp implements BusinessDelegate {
 
         return response;
     }
+    @Override
+    public TsscStory saveStory(TsscStory story) {
+        TsscStory response = null;
+        ResponseEntity<TsscStory> responseStory = restTemplate.postForEntity(LOCAL_URL + "api/tsscstories/", story, TsscStory.class);
+        if (responseStory.getStatusCode() == HttpStatus.OK) {
+            response = responseStory.getBody();
+        }
+
+        return response;
+    }
 
     @Override
     public void editStory(long id, TsscStory story) {

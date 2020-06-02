@@ -20,42 +20,92 @@
 		<h2 class="mb-5">Crear nueva historia</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<form action="#" th:action="@{/tsscstory/add(id=${tsscStory.id})}" th:object="${tsscStory}"
+			
+				<span th:if="${index == false}">
+					<form action="#" th:action="@{/tsscstory/add(id=${tsscStory.id})}" th:object="${tsscStory}"
 					method="post">
-					<div class="row">
-						
-						<div class="form-group col-md-6">
-							<label for="description" class="col-form-label">Descripción</label> 
-							<input type="text" th:field="*{description}" class="form-control" id="description"
-								placeholder="buena historia"> 
+						<div class="row">
+							
+							<div class="form-group col-md-6">
+								<label for="description" class="col-form-label">Descripción</label> 
+								<input type="text" th:field="*{description}" class="form-control" id="description"
+									placeholder="buena historia"> 
+							</div>
+							
+							<div class="form-group col-md-6">
+								<label for="businessValue" class="col-form-label">Valor del negocio</label> 
+								<input type="number" th:field="*{businessValue}" class="form-control" id="businessValue"
+									placeholder="0"><span th:if="${#fields.hasErrors('businessValue')}" th:errors="*{businessValue}" class="text-danger"></span>  
+							</div>
+							<div class="form-group col-md-6">
+								<label for="initialSprint" class="col-form-label">Sprint inicial</label>
+								<input type="number" th:field="*{initialSprint}" class="form-control"
+									id="initialSprint" placeholder="0"><span th:if="${#fields.hasErrors('initialSprint')}" th:errors="*{initialSprint}" class="text-danger"></span>  
+							</div>
+							<div class="form-group col-md-6">
+								<label for="priority" class="col-form-label">Prioridad</label>
+								<input type="number" th:field="*{priority}" class="form-control"
+									id="priority" placeholder="0"> <span th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}" class="text-danger"></span> 
+							</div> 												
+							
 						</div>
-						
-						<div class="form-group col-md-6">
-							<label for="businessValue" class="col-form-label">Valor del negocio</label> 
-							<input type="number" th:field="*{businessValue}" class="form-control" id="businessValue"
-								placeholder="0"><span th:if="${#fields.hasErrors('businessValue')}" th:errors="*{businessValue}" class="text-danger"></span>  
+						<div class="row">
+							<div class="col-md-4 mt-3">
+								<input type="submit" name="action" class="btn btn-primary" value="Adicionar">
+							</div>						
+							<div class="col-md-3 mt-3">
+								<input type="submit" name="cancel" class="btn btn-secondary" value="Cancelar">
+							</div>
 						</div>
-						<div class="form-group col-md-6">
-							<label for="initialSprint" class="col-form-label">Sprint inicial</label>
-							<input type="number" th:field="*{initialSprint}" class="form-control"
-								id="initialSprint" placeholder="0"><span th:if="${#fields.hasErrors('initialSprint')}" th:errors="*{initialSprint}" class="text-danger"></span>  
+					</form>
+				</span>
+				<span th:if="${index == true}">
+					<form action="#" th:action="@{/tsscstory/add}" th:object="${tsscStory}"
+					method="post">
+						<div class="row">
+							
+							<div class="form-group col-md-6">
+								<label for="description" class="col-form-label">Descripción</label> 
+								<input type="text" th:field="*{description}" class="form-control" id="description"
+									placeholder="buena historia"> 
+							</div>
+							
+							<div class="form-group col-md-6">
+								<label for="businessValue" class="col-form-label">Valor del negocio</label> 
+								<input type="number" th:field="*{businessValue}" class="form-control" id="businessValue"
+									placeholder="0"><span th:if="${#fields.hasErrors('businessValue')}" th:errors="*{businessValue}" class="text-danger"></span>  
+							</div>
+							<div class="form-group col-md-6">
+								<label for="initialSprint" class="col-form-label">Sprint inicial</label>
+								<input type="number" th:field="*{initialSprint}" class="form-control"
+									id="initialSprint" placeholder="0"><span th:if="${#fields.hasErrors('initialSprint')}" th:errors="*{initialSprint}" class="text-danger"></span>  
+							</div>
+							<div class="form-group col-md-6">
+								<label for="priority" class="col-form-label">Prioridad</label>
+								<input type="number" th:field="*{priority}" class="form-control"
+									id="priority" placeholder="0"> <span th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}" class="text-danger"></span> 
+							</div> 	
+							<div th:if="${index == true}" class="form-group col-md-6">
+								<label for=tsscGame class="col-form-label">Juego</label>
+								<select class="form-control-range" th:field="*{tsscGame}">
+									<option th:each= "tg : ${tsscgames}" th:value="${tg.id}" class="form-control"
+									th:text="${tg.name}" th:selected="${tsscStory.tsscGame=tg}"></option> 				
+								</select>
+								
+							</div>				
+							
 						</div>
-						<div class="form-group col-md-6">
-							<label for="priority" class="col-form-label">Prioridad</label>
-							<input type="number" th:field="*{priority}" class="form-control"
-								id="priority" placeholder="0"> <span th:if="${#fields.hasErrors('priority')}" th:errors="*{priority}" class="text-danger"></span> 
-						</div> 					
-						
-					</div>
-					<div class="row">
-						<div class="col-md-4 mt-3">
-							<input type="submit" name="action" class="btn btn-primary" value="Adicionar">
-						</div>						
-						<div class="col-md-3 mt-3">
-							<input type="submit" name="cancel" class="btn btn-secondary" value="Cancelar">
+						<div class="row">
+							<div class="col-md-4 mt-3">
+								<input type="submit" name="action" class="btn btn-primary" value="Adicionar">
+							</div>						
+							<div class="col-md-3 mt-3">
+								<input type="submit" name="cancel" class="btn btn-secondary" value="Cancelar">
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</span>
+				
 			</div>
 		</div>
 	</div>

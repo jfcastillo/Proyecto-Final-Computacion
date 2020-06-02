@@ -66,6 +66,40 @@ public class TsscStoryServiceImp implements TsscStoryService{
 	}
 	@Transactional
 	@Override
+	public TsscStory createStory(TsscStory story) throws StoryException, NullGameException {
+		if (gameDao.findById(story.getTsscGame().getId())  == null) {
+			throw new NullGameException("The game doesn't exist");
+
+		} else if (story.getBusinessValue().compareTo(new BigDecimal(0)) == 0
+				|| story.getBusinessValue().compareTo(new BigDecimal(0)) == -1) {
+			throw new StoryException("The business value is 0 or less");
+
+		} else if (story.getInitialSprint().compareTo(new BigDecimal(0)) == 0
+				|| story.getInitialSprint().compareTo(new BigDecimal(0)) == -1) {
+			throw new StoryException("The initial sprint is 0 or less");
+
+		} else if (story.getPriority().compareTo(new BigDecimal(0)) == 0
+				|| story.getPriority().compareTo(new BigDecimal(0)) == -1) {
+			throw new StoryException("The priority is 0 or less");
+
+		}
+		else {
+			TsscGame game = gameDao.findById(story.getTsscGame().getId());
+			story.setTsscGame(game);
+			
+			game.addTsscStory(story);
+			try {
+				gameService.editGame(game);
+			} catch (EditException | ZeroGroupSprintException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			storyDao.save(story);
+			return story;
+		}
+	}
+	@Transactional
+	@Override
 	public TsscStory editStory(TsscStory story) throws StoryException, EditException {
 		if (storyDao.findById(story.getId()) == null) {
 			throw new EditException("The story doesn't exist");
@@ -113,5 +147,6 @@ public class TsscStoryServiceImp implements TsscStoryService{
 	public void deleteStory(TsscStory story) {
 		storyDao.delete(story);
 	}
+	
 
 }

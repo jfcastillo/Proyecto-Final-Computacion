@@ -21,12 +21,32 @@ public class TsscStoryController {
 
 	@Autowired
 	private BusinessDelegate businessDelegate;
+	
+	private boolean index = false;
 
 	private long idGame;
 
+	@GetMapping("/tsscstory/")
+	public String indexStory(Model model) {
+		index = true;
+		model.addAttribute("index", index);
+		model.addAttribute("tsscstories", businessDelegate.findAllStories());
+		return "tsscstory/index";
+	}
+	@GetMapping("tsscstory/add")
+	public String addStoryWithGame(Model model) {			
+		index = true;
+		model.addAttribute("tsscgames", businessDelegate.findAllGames());
+		model.addAttribute("index", index);
+		model.addAttribute("tsscStory", new TsscStory());
+		return "tsscstory/add-story";
+	}
+	
 	@GetMapping("tsscstory/add/{id}")
 	public String addStory(@PathVariable("id") long idGame, Model model) {
+		index = false;
 		this.idGame = idGame;
+		model.addAttribute("index", index);
 		model.addAttribute("tsscStory", new TsscStory());
 		return "tsscstory/add-story";
 	}
@@ -39,8 +59,16 @@ public class TsscStoryController {
 			return "tsscstory/add-story";
 		}
 		if (!action.equals("cancel")) {
-			businessDelegate.saveStory(story, this.idGame);
-			return "redirect:/tsscgames/";
+			if (index) {
+				businessDelegate.saveStory(story);
+				return "redirect:/tsscstory/";
+			}
+			else {
+				businessDelegate.saveStory(story, this.idGame);
+				return "redirect:/tsscgames/";
+			}
+			
+			
 		}
 		return "redirect:/tsscgames/";
 	}
@@ -63,12 +91,12 @@ public class TsscStoryController {
 		if (action != null && !action.equals("Cancelar")) {
 			businessDelegate.editStory(id, story);
 		}
-		return "redirect:/tsscgames/";
+		return "redirect:/tsscstory/";
 	}
 
 	@GetMapping("/tsscstory/del/{id}")
 	public String deleteStory(@PathVariable("id") long id) {
 		businessDelegate.deleteStory(id);
-		return "redirect:/tsscgames/";
+		return "redirect:/tsscstory/";
 	}
 }

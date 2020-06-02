@@ -28,7 +28,8 @@
 								<th>Descripción</th>
 								<th>Valor del negocio</th>
 								<th>Sprint inicial</th>
-								<th>Prioridad</th>								
+								<th>Prioridad</th>
+								<span th:if="${index == true}"><th>Juego</th></span>								
 								<th>Editar</th>
 								<th>Borrar</th>
 							</tr>
@@ -39,6 +40,7 @@
 								<td class="text-info" th:text="${tsscstory.businessValue}"></td>
 								<td class="text-info" th:text="${tsscstory.initialSprint}"></td>
 								<td class="text-info" th:text="${tsscstory.priority}"></td>
+								<span th:if="${index == true}"><td class="text-info" th:text="${tsscstory.tsscGame.name}"></td></span>
 								<td><a sec:authorize="hasRole('admin')" th:href="@{/tsscstory/edit/{id}(id=${tsscstory.id})}"
 									class="btn btn-primary"><i class="fas fa-edit"></i></a></td>
 								<td><a sec:authorize="hasRole('admin')" th:href="@{/tsscstory/del/{id}(id=${tsscstory.id})}"
@@ -49,8 +51,14 @@
 						</tbody>
 					</table>
 				</div>
-				<p class="my-5" sec:authorize="hasRole('admin')">
-					<a th:href="@{/tsscstory/add/{id}(id=${idGame})}" class="btn btn-primary">Adicionar <i class="fas fa-drum-steelpan"></i></a>					
+				<p class="my-5" >
+					<span th:if="${index == false}">
+						<a sec:authorize="hasRole('admin')" th:href="@{/tsscstory/add/{id}(id=${idGame})}" class="btn btn-primary">Adicionar <i class="fas fa-drum-steelpan"></i></a>
+					</span>
+					<span th:if="${index == true}">
+						<a sec:authorize="hasRole('admin')" href="/tsscstory/add" class="btn btn-primary">Adicionar <i class="fas fa-drum-steelpan"></i></a>
+					</span>
+										
 				</p>				
 			</div>
 		</div>
