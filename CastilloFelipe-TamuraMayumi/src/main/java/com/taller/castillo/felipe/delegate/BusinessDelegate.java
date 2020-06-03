@@ -1,5 +1,8 @@
 package com.taller.castillo.felipe.delegate;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.taller.castillo.felipe.model.TsscGame;
 import com.taller.castillo.felipe.model.TsscStory;
 import com.taller.castillo.felipe.model.TsscTimecontrol;
@@ -12,6 +15,8 @@ public interface BusinessDelegate {
 	public Iterable<TsscGame> findAllGames(); 
 	public TsscGame saveGame(TsscGame game);
 	public void editGame(long id, TsscGame game);	
+	public List<TsscGame> findByDateRange(LocalDate startDate, LocalDate endDate);
+	public List<Object[]> findTopicByDate(LocalDate startDate);
 	
 	//TsscTopic ----------------------------
 	public TsscTopic getTopic(long idTopic);

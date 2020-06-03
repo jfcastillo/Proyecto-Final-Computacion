@@ -1,5 +1,8 @@
 package com.taller.castillo.felipe.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import com.taller.castillo.felipe.exception.EditException;
@@ -16,5 +19,6 @@ public interface TsscGameService {
 	public Iterable<TsscGame> findAll();
 	public Optional<TsscGame> findById(long id);
 	public void deleteAll();
-	//public TsscGame addTopicToGame();
+	public List<Object[]> findTopicByDate(LocalDate startDate);
+	public List<TsscGame> findByDateRange(LocalDate startDate, LocalDate endDate);
 }

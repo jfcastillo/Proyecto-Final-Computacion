@@ -1,5 +1,8 @@
 package com.taller.castillo.felipe.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,6 +141,14 @@ public class TsscGameServiceImp implements TsscGameService{
 	@Override
 	public void deleteAll() {
 		gameDao.deleteAll();		
+	}
+	@Override
+	public List<Object[]> findTopicByDate(LocalDate startDate) {
+		return gameDao.findTopicByDate(startDate);
+	}
+	@Override
+	public List<TsscGame> findByDateRange(LocalDate startDate, LocalDate endDate){
+		return gameDao.findByDateRange(startDate, endDate);
 	}
 
 	

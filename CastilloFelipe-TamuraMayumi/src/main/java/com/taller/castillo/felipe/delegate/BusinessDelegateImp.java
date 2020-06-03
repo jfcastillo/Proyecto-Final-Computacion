@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,6 +63,26 @@ public class BusinessDelegateImp implements BusinessDelegate {
     public void editGame(long id, TsscGame game) {
         restTemplate.put(LOCAL_URL + "api/tsscgames/" + id, game);
     }
+    
+    @Override
+	public List<TsscGame> findByDateRange(LocalDate startDate, LocalDate endDate) {
+    	TsscGame[] game = null;
+        List<TsscGame> gameIt;
+        ResponseEntity<TsscGame[]> responseGames = restTemplate.getForEntity(LOCAL_URL + "api/tsscgames/" + startDate
+        		+ "/" + endDate, TsscGame[].class);
+        if (responseGames.getStatusCode() == HttpStatus.OK) {
+            game = responseGames.getBody();
+        }
+        gameIt = Arrays.asList(game);
+
+        return gameIt;
+	}
+
+	@Override
+	public List<Object[]> findTopicByDate(LocalDate startDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
     //TsscTopic ---------------------------------------------------------------------------------------------------
     @Override
@@ -218,5 +239,7 @@ public class BusinessDelegateImp implements BusinessDelegate {
 		restTemplate.delete(LOCAL_URL + "api/tssctimecontrol/"+ id);
 		
 	}
+
+	
 
 }

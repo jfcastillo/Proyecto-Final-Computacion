@@ -1,6 +1,9 @@
 package com.taller.castillo.felipe.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -109,10 +112,27 @@ public class TsscGameController {
 	
 	@GetMapping("/tsscgames/timecontrol/{id}")
 	public String indexTimeControl(@PathVariable("id") long idGame, Model model) {
-		TsscGame game = businessDelegate.getGame(idGame);
+//		TsscGame game = businessDelegate.getGame(idGame);
 		model.addAttribute("idGame", idGame);
 		model.addAttribute("tssctimecontrols", businessDelegate.findAllTimeControlByGameId(idGame));
 		return "/tssctimecontrol/index";
+	}
+	@GetMapping("/tsscgames/query")
+	public String indexQuery(Model model) {
+		return "tsscgames/query";
+	}
+	@GetMapping("/tsscgames/query-topics")
+	public String indexQueryTopics(Model model) {
+		return "tsscgames/query-topics";
+	}
+	@GetMapping("/tsscgames/query-games")
+	public String indexQueryGames(Model model) {
+		return "tsscgames/query-games";
+	}
+	@PostMapping("/tsscgames/listGames")
+	public String queryGames(@RequestParam("startDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate, @RequestParam("endDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate endDate, Model model) {
+		model.addAttribute("tsscgames", businessDelegate.findByDateRange(startDate, endDate));
+		return "tsscgames/postQuery-games.html";
 	}
 
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Taller 2</title>
+<title>Consultas</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -14,24 +14,18 @@
 	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="../css/shards.min.css">
-<link taglib prefix="security" uri="http://www.springframework.org/security/tags" >
 </head>
 <body>
 	<div class="container my-5">
+		<h2 class="mb-5">Consultas</h2>
 		<div class="row">
 			<div class="col-md-6">
-				<h2 th:case="null">-Simulación Scrum - Universidad Icesi</h2>
-				
-				<p class="my-6" ><a href="/tssctopics/"><i class="fas fa-drum-steelpan"></i> Gestión de temas</a></p>
-				<p class="my-6" ><a href="/tsscgames/"><i class="fas fa-dice"></i> Gestión de juegos</a></p>
-				<p class="nav-item"><a href="/tsscstory/"><i class="fas fa-warehouse"></i> Gestión de historias</a></p>
-				<p class="nav-item"><a href="/tsscgames/query"><i class="fas fa-search"></i> Consultas </a></p>
-				<p class="my-6"><a href="/logout"><i class="fas fa-sign-out-alt ml-2"></i>Logout</a></p>
-				
-				
+				<p class="my-5">
+					<a href="/tsscgames/query-topics" class="btn btn-primary">Mostrar temas <i class="fas fa-drum-steelpan"></i></a>
+					<a href="/tsscgames/query-games" class="btn btn-primary">Mostrar juegos <i class="fas fa-dice"></i></a>
+				</p>	
 			</div>
 		</div>
 	</div>
-	
 </body>
 </html>

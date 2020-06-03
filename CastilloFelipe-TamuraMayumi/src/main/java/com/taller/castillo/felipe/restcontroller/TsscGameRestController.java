@@ -1,6 +1,10 @@
 package com.taller.castillo.felipe.restcontroller;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import com.taller.castillo.felipe.exception.EditException;
@@ -47,5 +51,11 @@ public class TsscGameRestController {
 		}        
         return createdGame;
     }
+	
+	@GetMapping("/tsscgames/{startDate}/{endDate}")
+	public List<TsscGame> findByDateRange(@PathVariable("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate,@PathVariable("endDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+		
+		return gameService.findByDateRange(startDate, endDate);
+	}
 
 }
