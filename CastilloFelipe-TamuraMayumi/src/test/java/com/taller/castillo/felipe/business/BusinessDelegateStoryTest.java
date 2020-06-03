@@ -2,8 +2,10 @@ package com.taller.castillo.felipe.business;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.taller.castillo.felipe.delegate.BusinessDelegate;
@@ -59,12 +62,33 @@ public class BusinessDelegateStoryTest {
     
     @Test
     public void successOnFindAllStories() {
-    	// TODO Auto-generated method stub
+    	//Given
+    	TsscStory stories[] = new TsscStory[2];
+    	stories[0] = new TsscStory();
+    	stories[1] = new TsscStory();
+    	stories[0].setDescription("PruebaDescription");
+    	ResponseEntity<TsscStory[]> responseEntity = new ResponseEntity<TsscStory[]>(stories, HttpStatus.OK);
+
+        //When
+        when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscStory[].class))).thenReturn(responseEntity);
+        Iterable<TsscStory> storiesResponse = businessDelegate.findAllStories();
+        
+        //Then
+        Assert.assertNotNull(storiesResponse);
+        Assert.assertEquals(storiesResponse.iterator().next().getDescription(), "PruebaDescription");
     }
     
     @Test
     public void serverErrorOnFindAllStories() {
-    	// TODO Auto-generated method stub
+    	//Given
+    	ResponseEntity<TsscStory[]> responseEntity = new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    	
+    	//When
+        when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscStory[].class))).thenReturn(responseEntity);
+        Iterable<TsscStory> storiesResponse = businessDelegate.findAllStories();
+        
+        //Then
+        Assert.assertNull(storiesResponse);
     }
     
     @Test
@@ -109,11 +133,28 @@ public class BusinessDelegateStoryTest {
     @Test
     public void successOnEditStory() {
     	// TODO Auto-generated method stub
+    	//Given
+    	TsscStory story = new TsscStory();
+    	story.setDescription("PruebaDescription");
+    	ResponseEntity<TsscStory> responseEntity = new ResponseEntity<TsscStory>(story, HttpStatus.OK);
+    	
+        //Then
+    	Assertions.assertThatCode(() -> businessDelegate.editStory(1, story)).doesNotThrowAnyException();
     }
     
-    @Test
+    @Test (expected = HttpClientErrorException.class)
     public void serverErrorOnEditStory() {
     	// TODO Auto-generated method stub
+    	//Given
+    	TsscStory story = new TsscStory();
+    	story.setDescription("PruebaDescription");
+    	ResponseEntity<TsscStory> responseEntity = new ResponseEntity<TsscStory>(story, HttpStatus.OK);
+    	
+        //When
+        doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(restTemplate).put(anyString(), any(TsscStory.class));
+        
+        //Then
+        businessDelegate.editStory(1, story);
     }
     
     @Test
