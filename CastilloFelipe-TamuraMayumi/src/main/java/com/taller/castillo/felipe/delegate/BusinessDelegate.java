@@ -16,7 +16,7 @@ public interface BusinessDelegate {
 	public TsscGame saveGame(TsscGame game);
 	public void editGame(long id, TsscGame game);	
 	public List<TsscGame> findByDateRange(LocalDate startDate, LocalDate endDate);
-	public List<Object[]> findTopicByDate(LocalDate startDate);
+	public List<TsscTopic> findTopicByDate(LocalDate startDate);
 	
 	//TsscTopic ----------------------------
 	public TsscTopic getTopic(long idTopic);

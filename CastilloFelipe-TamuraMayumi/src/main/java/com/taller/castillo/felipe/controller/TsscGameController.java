@@ -134,5 +134,10 @@ public class TsscGameController {
 		model.addAttribute("tsscgames", businessDelegate.findByDateRange(startDate, endDate));
 		return "tsscgames/postQuery-games.html";
 	}
+	@PostMapping("/tsscgames/listTopics")
+	public String queryTopics(@RequestParam("startDate")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate,Model model) {
+		model.addAttribute("tssctopics", businessDelegate.findTopicByDate(startDate));
+		return "tsscgames/postQuery-topics.html";
+	}
 
 }

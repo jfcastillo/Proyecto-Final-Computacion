@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -79,9 +80,19 @@ public class BusinessDelegateImp implements BusinessDelegate {
 	}
 
 	@Override
-	public List<Object[]> findTopicByDate(LocalDate startDate) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TsscTopic> findTopicByDate(LocalDate startDate) {
+		Object[] rQuery = null;
+        List<TsscTopic> topicIt = new ArrayList<>();
+        List<Object[]> responseGames = (List<Object[]>) restTemplate.getForEntity(LOCAL_URL + "api/tsscgames/" + startDate, List.class);
+//        if (responseGames.getStatusCode() == HttpStatus.OK) {
+//        	rQuery = responseGames.getBody();
+//        }
+        for (Object[] objects : responseGames) {
+        	topicIt.add((TsscTopic)objects[0]);
+		}
+        
+
+        return topicIt;
 	}
     
     //TsscTopic ---------------------------------------------------------------------------------------------------

@@ -1,6 +1,7 @@
 package com.taller.castillo.felipe.restcontroller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.taller.castillo.felipe.exception.EditException;
 import com.taller.castillo.felipe.exception.ZeroGroupSprintException;
 import com.taller.castillo.felipe.model.TsscGame;
+import com.taller.castillo.felipe.model.TsscTopic;
 import com.taller.castillo.felipe.service.TsscGameService;
 
 @RestController
@@ -57,5 +59,14 @@ public class TsscGameRestController {
 		
 		return gameService.findByDateRange(startDate, endDate);
 	}
+//	@GetMapping("/tsscgames/{startDate}")
+//	public List<TsscTopic> findByDateRange(@PathVariable("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate startDate) {
+//		List<Object[]> query = (gameService.findTopicByDate(startDate));
+//		List<TsscTopic> topics = new ArrayList<>();
+//		for (Object[] objects : query) {
+//			topics.add((TsscTopic)objects[0]);
+//		}
+//		return topics;
+//	}
 
 }
