@@ -94,11 +94,35 @@ public class BusinessDelegateStoryTest {
     @Test
     public void successOnFindStoriesByGameId() {
     	// TODO Auto-generated method stub
+    	//Given
+    	TsscStory stories[] = new TsscStory[2];
+    	stories[0] = new TsscStory();
+    	stories[1] = new TsscStory();
+    	stories[0].getTsscGame().setId(1);
+    	stories[0].setDescription("PruebaDescription");
+    	ResponseEntity<TsscStory[]> responseEntity = new ResponseEntity<TsscStory[]>(stories, HttpStatus.OK);
+
+        //When
+        when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscStory[].class))).thenReturn(responseEntity);
+        Iterable<TsscStory> storiesResponse = businessDelegate.findStoriesByGameId(1);
+        
+        //Then
+        Assert.assertNotNull(storiesResponse);
+        Assert.assertEquals(storiesResponse.iterator().next().getDescription(), "PruebaDescription");
     }
     
     @Test
     public void serverErrorOnFindStoriesByGameId() {
     	// TODO Auto-generated method stub
+    	//Given
+    	ResponseEntity<TsscStory[]> responseEntity = new ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    	
+    	//When
+        when(restTemplate.getForEntity(anyString(), Mockito.eq(TsscStory[].class))).thenReturn(responseEntity);
+        Iterable<TsscStory> storiesResponse = businessDelegate.findStoriesByGameId(1);
+        
+        //Then
+        Assert.assertNull(storiesResponse);
     }
     
     @Test
@@ -160,11 +184,16 @@ public class BusinessDelegateStoryTest {
     @Test
     public void successOnDeleteStory() {
     	// TODO Auto-generated method stub
+    	Assertions.assertThatCode(() -> businessDelegate.deleteStory(1)).doesNotThrowAnyException();
     }
     
     @Test
     public void serverErrorOnDeleteStory() {
     	// TODO Auto-generated method stub
+    	doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(restTemplate).delete(anyString());
+
+        //Then
+        businessDelegate.deleteStory(1);
     }
     
 }
