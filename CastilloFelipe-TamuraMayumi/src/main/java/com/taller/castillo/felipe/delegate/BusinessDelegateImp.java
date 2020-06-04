@@ -37,12 +37,12 @@ public class BusinessDelegateImp implements BusinessDelegate {
     @Override
     public Iterable<TsscGame> findAllGames() {
         TsscGame[] game = null;
-        List<TsscGame> gameIt;
+        List<TsscGame> gameIt = null;
         ResponseEntity<TsscGame[]> responseGames = restTemplate.getForEntity(LOCAL_URL + "api/tsscgames/", TsscGame[].class);
         if (responseGames.getStatusCode() == HttpStatus.OK) {
             game = responseGames.getBody();
+            gameIt = Arrays.asList(game);
         }
-        gameIt = Arrays.asList(game);
 
         return gameIt;
 
@@ -151,12 +151,12 @@ public class BusinessDelegateImp implements BusinessDelegate {
     @Override
     public Iterable<TsscStory> findAllStories() {
         TsscStory[] stories = null;
-        List<TsscStory> storiesIt;
+        List<TsscStory> storiesIt = null;
         ResponseEntity<TsscStory[]> responseStories = restTemplate.getForEntity(LOCAL_URL + "api/tsscstories/", TsscStory[].class);
         if (responseStories.getStatusCode() == HttpStatus.OK) {
             stories = responseStories.getBody();
+            storiesIt = Arrays.asList(stories);
         }
-        storiesIt = Arrays.asList(stories);
 
         return storiesIt;
     }
@@ -164,12 +164,12 @@ public class BusinessDelegateImp implements BusinessDelegate {
     @Override
     public Iterable<TsscStory> findStoriesByGameId(long gameId) {
         TsscStory[] stories = null;
-        List<TsscStory> storiesIt;
+        List<TsscStory> storiesIt = null;
         ResponseEntity<TsscStory[]> responseStories = restTemplate.getForEntity(LOCAL_URL + "api/tsscstories/game/"+gameId, TsscStory[].class);
         if (responseStories.getStatusCode() == HttpStatus.OK) {
             stories = responseStories.getBody();
+            storiesIt = Arrays.asList(stories);
         }
-        storiesIt = Arrays.asList(stories);
 
         return storiesIt;
     }
@@ -210,12 +210,12 @@ public class BusinessDelegateImp implements BusinessDelegate {
     @Override
     public Iterable<TsscTimecontrol> findAllTimeControlByGameId(long gameId) {
     	TsscTimecontrol[] timecontrols = null;
-        List<TsscTimecontrol> timecontrolIt;
+        List<TsscTimecontrol> timecontrolIt = null;
         ResponseEntity<TsscTimecontrol[]> responseTimecontrol = restTemplate.getForEntity(LOCAL_URL + "api/tssctimecontrol/game/"+gameId, TsscTimecontrol[].class);
         if (responseTimecontrol.getStatusCode() == HttpStatus.OK) {
         	timecontrols = responseTimecontrol.getBody();
+            timecontrolIt = Arrays.asList(timecontrols);
         }
-        timecontrolIt = Arrays.asList(timecontrols);
 
         return timecontrolIt;
     }

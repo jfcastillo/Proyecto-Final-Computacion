@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import com.taller.castillo.felipe.model.TsscGame;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
@@ -97,6 +98,7 @@ public class BusinessDelegateStoryTest {
     	//Given
     	TsscStory stories[] = new TsscStory[2];
     	stories[0] = new TsscStory();
+    	stories[0].setTsscGame(new TsscGame());
     	stories[1] = new TsscStory();
     	stories[0].getTsscGame().setId(1);
     	stories[0].setDescription("PruebaDescription");
@@ -187,7 +189,7 @@ public class BusinessDelegateStoryTest {
     	Assertions.assertThatCode(() -> businessDelegate.deleteStory(1)).doesNotThrowAnyException();
     }
     
-    @Test
+    @Test(expected = HttpClientErrorException.class)
     public void serverErrorOnDeleteStory() {
     	// TODO Auto-generated method stub
     	doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(restTemplate).delete(anyString());

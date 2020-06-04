@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import com.taller.castillo.felipe.model.TsscGame;
 import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,7 +39,8 @@ public class BusinessDelegateTimeControlTest {
     	//Given
     	TsscTimecontrol timecontrol[] = new TsscTimecontrol[2];
     	timecontrol[0] = new TsscTimecontrol();
-    	timecontrol[1] = new TsscTimecontrol();
+        timecontrol[0].setTsscGame(new TsscGame());
+        timecontrol[1] = new TsscTimecontrol();
     	timecontrol[0].getTsscGame().setId(1);
     	timecontrol[0].setName("PruebaName");
     	ResponseEntity<TsscTimecontrol[]> responseEntity = new ResponseEntity<TsscTimecontrol[]>(timecontrol, HttpStatus.OK);
@@ -157,7 +159,7 @@ public class BusinessDelegateTimeControlTest {
     	Assertions.assertThatCode(() -> businessDelegate.deletTimeControl(1)).doesNotThrowAnyException();
     }
     
-    @Test
+    @Test(expected = HttpClientErrorException.class)
     public void serverErrorOnDeletTimeControl() {
     	// TODO Auto-generated method stub
     	doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(restTemplate).delete(anyString());
